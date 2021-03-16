@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/16 14:02:47 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:37:16 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		close_window(int keycode, t_game *game)
 	return (0);
 }
 
-int		key_pressed(int keycode, t_game *game, t_player *player, t_cub cub)
+int		get_key_pressed(int keycode, t_game *game, t_player *player, t_cub cub)
 {
 	if (keycode == KEY_W)
 	{
@@ -144,7 +144,6 @@ int	draw_buffer(t_game *game, int x, int *buffer)
 	int	y;
 
 	y = game->camera.drawstart;
-//	mlx_clear_window(game->mlx, game->win);
 	while (y < game->camera.drawend)
 	{
 		my_mlx_pixel_put(&game->img, x, y, buffer[y]);
@@ -197,10 +196,15 @@ int		main(int argc, char **argv)
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, w, h, "J'ai fait STMG me parle pas de maths");
 	game.img.img = mlx_new_image(game.mlx, w, h);
-
+	game.img.addr = mlx_get_data_addr(game.img.img,
+									  &game.img.bits_per_pixel,
+									  &game.img.line_length,
+									  &game.img.endian);
 	game.tmp.img = mlx_xpm_file_to_image(game.win, "../resources/Texture-nord-256.xpm", &game.tmp.width, &game.tmp.height);
-	game.tmp.addr = mlx_get_data_addr(game.tmp.img, &game.tmp.bits_per_pixel, &game.tmp.line_length,
-									 &game.tmp.endian);
+	game.tmp.addr = mlx_get_data_addr(game.tmp.img,
+									  &game.tmp.bits_per_pixel, 
+									  &game.tmp.line_length,
+									  &game.tmp.endian);
 	game.tab_x_size = 10;
 	game.player.posx = 6.0;
 	game.player.posy = 6.0;
@@ -213,10 +217,6 @@ int		main(int argc, char **argv)
 	game.cub.map = getmap();
 	game.h = h;
 	game.w = w;
-	game.img.addr = mlx_get_data_addr(game.img.img,
-									   &game.img.bits_per_pixel,
-									   &game.img.line_length,
-									   &game.img.endian);
 	if (!(game.buffer = malloc(sizeof(int) * h)))
 		return (write(2, "Error Malloc Buffer of h * int\n", 31));
 //	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);

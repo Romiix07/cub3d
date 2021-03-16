@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/16 13:59:34 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:20:02 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "cub3d.h"
 #include "cub3d_defines.h"
 
-void	fill_buffer(t_game *game, t_camera *cam, int color)
+void	fill_buffer(t_game *game, t_camera *cam)
 {
 	int	y;
 
@@ -35,7 +35,6 @@ void	fill_buffer(t_game *game, t_camera *cam, int color)
 													 cam->texx *
 													 (game->tmp.bits_per_pixel /
 													  8)));
-//		game->buffer[y] = color;
 		++y;
 	}
 }
@@ -148,7 +147,7 @@ int loop(t_game *game, t_cub cub)
 		perform_dda(&game->player, &game->camera, cub);
 		get_perp_drawstartend(game, &game->player, &game->camera);
 
-		//get color
+/*		//get color
 		if (game->camera.mapy > game->player.posy && game->camera.side == 1) //EAST
 			color = RGB_GREEN;
         else if (game->camera.mapx > game->player.posx && game->camera.side == 0)
@@ -157,11 +156,12 @@ int loop(t_game *game, t_cub cub)
 			color = RGB_BLUE;
         else //NORTH
 			color = RGB_WHITE;
+*/
 
 		get_wallx_texx(game, &game->player, &game->camera);
-		fill_buffer(game, &game->camera, color);
+		fill_buffer(game, &game->camera);
+//		draw_vertical_line(game, x, color);
 		draw_buffer(game, x, game->buffer);
-		//draw_vertical_line(game, x, color);
 		++x;
 	}
 	return (1);
