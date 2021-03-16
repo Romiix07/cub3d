@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/08 14:44:49 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/15 14:34:22 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ typedef struct	s_img {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }				t_img;
 
 typedef struct	s_player {
@@ -61,6 +63,7 @@ typedef struct	s_game {
 	void		*win;
 	int			tab_x_size;
 	t_img		img;
+	t_img tmp;
 	t_player	player;
 	t_camera	camera;
 	t_cub		cub;
