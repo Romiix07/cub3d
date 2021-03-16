@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/15 14:34:22 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/16 13:27:45 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ typedef struct	s_camera {
 	double	deltadistx;
 	double	deltadisty;
 	double	perpwalldist;
+	double	wallx;
+	double	step;
+	double	texpos;
+	int		texx;
+	int		texy;
+	int		mapx;
+	int		mapy;
 	int		stepx;
 	int		stepy;
 	int		hit;
@@ -62,11 +69,17 @@ typedef struct	s_game {
 	void		*mlx;
 	void		*win;
 	int			tab_x_size;
+	int			*buffer;
+	int			h;
+	int			w;
 	t_img		img;
-	t_img tmp;
+	t_img tmp; //temporaire, texture a afficher
 	t_player	player;
 	t_camera	camera;
 	t_cub		cub;
 }				t_game;
+
+int	loop(struct s_game *game, struct s_cub cub);
+int draw_buffer(struct s_game *game, int x, int *buffer);
 
 #endif

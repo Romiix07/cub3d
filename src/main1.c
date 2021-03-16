@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/15 15:27:23 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:02:47 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 #include "cub3d.h"
 #include "cub3d_defines.h"
 
-int h = 1080;
-int w = 1920;
+int h = 1000;
+int w = 1500;
 
 int		exit_all(t_game *game)
 {
@@ -32,8 +32,6 @@ int		close_window(int keycode, t_game *game)
 	mlx_destroy_window(game->mlx, game->win);
 	return (0);
 }
-
-// JE DONNE UN DOUBLE AU LIEU DUN INT, acorriger
 
 int		key_pressed(int keycode, t_game *game, t_player *player, t_cub cub)
 {
@@ -128,7 +126,6 @@ int	draw_vertical_line(t_game *game, int x, int color)
 	int	y;
 
 	y = game->camera.drawstart;
-//	printf("drawstart = %d, drawend = %d\n", game->camera.drawstart, game->camera.drawend);
 	mlx_clear_window(game->mlx, game->win);
 	game->img.addr = mlx_get_data_addr(game->img.img,
 									   &game->img.bits_per_pixel,
@@ -147,12 +144,7 @@ int	draw_buffer(t_game *game, int x, int *buffer)
 	int	y;
 
 	y = game->camera.drawstart;
-//	printf("drawstart = %d, drawend = %d\n", game->camera.drawstart, game->camera.drawend);
-	mlx_clear_window(game->mlx, game->win);
-	game->img.addr = mlx_get_data_addr(game->img.img,
-									   &game->img.bits_per_pixel,
-									   &game->img.line_length,
-									   &game->img.endian);
+//	mlx_clear_window(game->mlx, game->win);
 	while (y < game->camera.drawend)
 	{
 		my_mlx_pixel_put(&game->img, x, y, buffer[y]);
@@ -161,149 +153,13 @@ int	draw_buffer(t_game *game, int x, int *buffer)
 	return (0);
 }
 
-int loop1(t_game *game, t_player *player, t_camera *camera, t_cub cub)
-{
-	int x;
-	int mapx;
-	int mapy;
-	int color;
-	int buffer[h];
-
-	x = 0;
-	while (x < w)
-	{
-		//calculate ray position and direction
-		camera->camerax = 2 * x / (double)w - 1;
-		camera->raydirx = player->dirx + player->planex * camera->camerax;
-		camera->raydiry = player->diry + player->planey * camera->camerax;
-		
-		//which box of the map we're in
-		mapx = (int)player->posx;
-		mapy = (int)player->posy;
-		
-		//lenght of ray from one current position to next x or y-side
-		camera->deltadistx = fabs(1 / camera->raydirx);
-		camera->deltadisty = fabs(1 / camera->raydiry);
-
-		//calculate step and initial sidedist
-		if (camera->raydirx < 0)
-		{
-			camera->stepx = -1;
-			camera->sidedistx = (player->posx - mapx) * camera->deltadistx;
-		}
-		else
-		{
-			camera->stepx = 1;
-			camera->sidedistx = (mapx + 1.0 - player->posx) * camera->deltadistx;
-		}
-		if (camera->raydiry < 0)
-		{
-			camera->stepy = -1;
-			camera->sidedisty = (player->posy - mapy) * camera->deltadisty;
-		}
-		else
-		{
-			camera->stepy = 1;
-			camera->sidedisty = (mapy + 1.0 - player->posy) * camera->deltadisty;
-		}
-
-		//perform DDA
-		camera->hit = 0;
-		while (camera->hit == 0)
-		{
-			if (camera->sidedistx < camera->sidedisty)
-			{
-				camera->sidedistx += camera->deltadistx;
-				mapx += camera->stepx;
-				camera->side = 0;
-			}
-			else
-			{
-				camera->sidedisty += camera->deltadisty;
-				mapy += camera->stepy;
-				camera->side = 1;
-			}
-			if (cub.map[mapx][mapy] > 0)
-				camera->hit = 1;
-		}
-
-		//calculate distance projected on camera direction (euclidean distance will give fisheye effect)
-		if (camera->side == 0)
-			camera->perpwalldist = (mapx - player->posx + (1 - camera->stepx) /
-									2) / camera->raydirx;
-		else
-			camera->perpwalldist = (mapy - player->posy + (1 - camera->stepy) /
-									2) / camera->raydiry;
-
-		//calculate height of line to draw on screen, h == window size
-		camera->lineheight = (int)(h / camera->perpwalldist);
-
-//		printf("ll = %d, ppw = %f\n", camera->lineheight, camera->perpwalldist);
-		//calculate lowest and highest pixel to fill in current stripe
-		camera->drawstart = -camera->lineheight / 2 + h / 2;
-		if (camera->drawstart < 0)
-			camera->drawstart = 0;
-		camera->drawend = camera->lineheight / 2 + h / 2;
-		if (camera->drawend >= h)
-			camera->drawend = h - 1;
-
-		//get color
-		if (mapy > player->posy && camera->side == 1)
-//            curr_img = game->img[1];
-			color = RGB_GREEN;
-        else if (mapx > player->posx && camera->side == 0)
-//            curr_img = game->img[2];
-			color = RGB_RED;
-        else if (mapy < player->posy && camera->side == 1)
-//            curr_img = game->img[3];
-			color = RGB_BLUE;
-        else
-			color = RGB_WHITE;
-//            curr_img = game->img[4];
-		if (cub.map[mapx][mapy] == 1)
-			color = RGB_BLUE;
-		else
-			color = RGB_RED;
-		if (camera->side == 1)
-		color /= 2;
-
-		double wallx;
-		if (camera->side == 0)
-			wallx = player->posy + camera->perpwalldist * camera->raydiry;
-		else
-			wallx = player->posx + camera->perpwalldist * camera->raydirx;
-		wallx -= wallx < 0 ? (int)wallx - 1 : (int)wallx;
-
-		int texx = (int)(wallx * (double)game->tmp.width);
-		if (camera->side == 0 && camera->raydirx > 0)
-			texx = game->tmp.width - texx - 1;
-		if (camera->side == 1 && camera->raydiry < 0)
-			texx = game->tmp.width - texx - 1;
-
-		double step = 1.0 * game->tmp.height / camera->lineheight;
-		double texpos = (camera->drawstart - h / 2 + camera->lineheight / 2) * step;
-
-		for (int y = camera->drawstart; y < camera->drawend; ++y)
-		{
-			int texy = (int)texpos & (game->tmp.height - 1);
-			texpos += step;
-//			buffer[y] = RGB_RED;
-			buffer[y] = *(int *)(game->tmp.addr + (texy * game->tmp.line_length + texx * (game->tmp.bits_per_pixel / 8)));
-		}
-		draw_buffer(game, x, buffer);
-//		draw_vertical_line(game, x, color);
-		++x;
-	}
-	return (1);
-}
-
 int	tmp(int keycode, t_game *game)
 {
 	mlx_clear_window(game->mlx, game->win);
 	put_image(0, game);
 	key_pressed(keycode, game, &game->player, game->cub);
-//	printf("posx = %f, posy = %f\n", game->player.posx, game->player.posy);
-	loop1(game, &game->player, &game->camera, game->cub);
+	printf("posx = %f, posy = %f\n", game->player.posx, game->player.posy);
+	loop(game, game->cub);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	return 0;
 }
@@ -325,11 +181,11 @@ int	**getmap(void)
 		}
 	}
 	map[2][2] = 1;
-	map[2][3] = 1;
-	map[2][4] = 1;
-	map[3][2] = 1;
+//	map[2][3] = 1;
+//	map[2][4] = 1;
+//	map[3][2] = 1;
 	map[3][4] = 1;
-	map[4][2] = 1;
+//	map[4][2] = 1;
 	map[4][4] = 1;
 	return map;
 }
@@ -355,8 +211,16 @@ int		main(int argc, char **argv)
 	game.player.movespeed = 0.2;
 	game.player.rotspeed = 0.1;
 	game.cub.map = getmap();
-//	mlx_hook(game.win, 2, 1L<<0, key_pressed, &game);
-	mlx_hook(game.win, 2, 1L<<0, &tmp, &game);
+	game.h = h;
+	game.w = w;
+	game.img.addr = mlx_get_data_addr(game.img.img,
+									   &game.img.bits_per_pixel,
+									   &game.img.line_length,
+									   &game.img.endian);
+	if (!(game.buffer = malloc(sizeof(int) * h)))
+		return (write(2, "Error Malloc Buffer of h * int\n", 31));
+//	mlx_hook(game.win, 2, 1L << 0, key_pressed, &game);
+	mlx_hook(game.win, 2, 1L << 0, &tmp, &game);
 	mlx_hook(game.win, 17, 0, &exit_all, &game);
 	mlx_loop(game.mlx);
 	return (0);
