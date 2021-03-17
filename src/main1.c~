@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/17 10:34:27 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:37:16 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int	tmp(int keycode, t_game *game)
 {
 	mlx_clear_window(game->mlx, game->win);
 	put_image(0, game);
-	get_key_pressed(keycode, game, &game->player, game->cub);
+	key_pressed(keycode, game, &game->player, game->cub);
 	printf("posx = %f, posy = %f\n", game->player.posx, game->player.posy);
 	loop(game, game->cub);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
@@ -180,11 +180,11 @@ int	**getmap(void)
 		}
 	}
 	map[2][2] = 1;
-	map[2][3] = 1;
-	map[2][4] = 1;
-	map[3][2] = 1;
+//	map[2][3] = 1;
+//	map[2][4] = 1;
+//	map[3][2] = 1;
 	map[3][4] = 1;
-	map[4][2] = 1;
+//	map[4][2] = 1;
 	map[4][4] = 1;
 	return map;
 }
@@ -205,6 +205,7 @@ int		main(int argc, char **argv)
 									  &game.tmp.bits_per_pixel, 
 									  &game.tmp.line_length,
 									  &game.tmp.endian);
+	game.tab_x_size = 10;
 	game.player.posx = 6.0;
 	game.player.posy = 6.0;
 	game.player.dirx = -1.0;
