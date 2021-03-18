@@ -13,6 +13,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+//# include <mlx.h> //for mac os
+# include "../minilibx/mlx.h"
 # include "../utils/cub.h"
 # include "../utils/get_next_line.h"
 
