@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/18 10:57:57 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:08:50 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,19 @@ typedef struct	s_camera {
 }				t_camera;
 
 typedef struct	s_game {
-	void		*mlx;
-	void		*win;
-	int			*buffer;
-	int			h;
-	int			w;
-	t_img		img;
+	void			*mlx;
+	void			*win;
+	int				h;
+	int				w;
+	t_img			img;
 	t_img tmp; //temporaire, texture a afficher
-	t_player	player;
-	t_camera	camera;
-	t_cub		cub;
+	t_player		player;
+	t_camera		camera;
+	t_cub			cub;
 }				t_game;
 
-int	raycast(struct s_game *game, struct s_cub cub);
-int draw_buffer(struct s_game *game, int x, int *buffer);
+int		raycast(struct s_game *game, struct s_cub cub);
+int		draw_buffer(struct s_game *game, int x, unsigned int *buffer);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 #endif

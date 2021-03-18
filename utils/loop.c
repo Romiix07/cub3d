@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +7,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/18 11:00:00 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:12:17 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +19,14 @@
 #include "cub3d.h"
 #include "cub3d_defines.h"
 
-void	fill_buffer(t_game *game, t_camera *cam)
+void	fill_buffer(t_game *game, t_camera *cam, int x)
 {
 	int	y;
+	int color;
 
 	y = -1;
-	while (++y <  cam->drawstart)
-		game->buffer[y] = game->cub.ceiling_color;
-	y = cam->drawstart;
+	while (++y < cam->drawstart)
+		my_mlx_pixel_put(&game->img, x, y, game->cub.ceiling_color);
 	cam->step = 1.0 * game->tmp.height / cam->lineheight;
 	cam->texpos = (cam->drawstart - game->h / 2 + cam->lineheight / 2) *
 		cam->step;
@@ -33,15 +34,16 @@ void	fill_buffer(t_game *game, t_camera *cam)
 	{
 		cam->texy = (int)cam->texpos & (game->tmp.height - 1);
 		cam->texpos += cam->step;
-		game->buffer[y] = *(int *)(game->tmp.addr + (cam->texy *
-													 game->tmp.line_length +
-													 cam->texx *
-													 (game->tmp.bits_per_pixel /
-													  8)));
+		my_mlx_pixel_put(&game->img, x, y, *(int *)
+						 (game->tmp.addr + (cam->texy *
+											game->tmp.line_length +
+											cam->texx *
+											(game->tmp.bits_per_pixel /
+											 8))));
 		++y;
 	}
 	while ((++y - 1) < game->h)
-		game->buffer[y] = game->cub.floor_color;
+		my_mlx_pixel_put(&game->img, x, y - 1, game->cub.floor_color);
 }
 
 void	get_wallx_texx(t_game *game, t_player *player, t_camera *cam)
@@ -162,10 +164,9 @@ int raycast(t_game *game, t_cub cub)
         else                                                                      //NORTH
 			index = RGB_WHITE;
 */
-
 		get_wallx_texx(game, &game->player, &game->camera);
-		fill_buffer(game, &game->camera);
-		draw_buffer(game, x, game->buffer);
+		fill_buffer(game, &game->camera, x);
+//		draw_buffer(game, x, game->buffer);
 		++x;
 	}
 	return (1);

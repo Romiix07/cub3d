@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +7,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/18 11:13:23 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/18 14:05:38 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +115,11 @@ int		get_key_released(int keycode, t_game *game)
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-    char    *dst;
+    char	*dst;
 
-    dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
+//	printf("color = %0x\n", (unsigned int)color);
+    dst = (img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8)));
+    *(unsigned int *)dst = color;
 }
 
 /*
@@ -159,7 +161,8 @@ int	draw_vertical_line(t_game *game, int x, int color)
 	return (0);
 }
 
-int	draw_buffer(t_game *game, int x, int *buffer)
+/*
+int	draw_buffer(t_game *game, int x, unsigned int *buffer)
 {
 	int	y;
 
@@ -171,11 +174,12 @@ int	draw_buffer(t_game *game, int x, int *buffer)
 	}
 	return (0);
 }
+*/
 
 int	loop(t_game *game)
 {
-//	printf("posx = %f, posy = %f\n", game->player.posx, game->player.posy);
 	move(game, &game->player, game->cub);
+//	printf("posx = %f, posy = %f\n", game->player.posx, game->player.posy);
 	raycast(game, game->cub);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	return 0;
@@ -188,12 +192,12 @@ int		free_game(t_game *game)
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	i = -1;
-	if (game->buffer)
-		free(game->buffer);
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
 	if (game->tmp.img)
 		mlx_destroy_image(game->mlx, game->tmp.img);
+	if (game->mlx)
+		free(game->mlx);
 	return (0);
 }
 
@@ -228,15 +232,31 @@ int		init_game(t_game *game, t_cub *cub)
 		return (free_game(game));
 	if (!(game->img.img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))
 		return (free_game(game));
+	if (!(game->tmp.img = mlx_xpm_file_to_image(game->win, "../resources/redbrick.xpm", &game->tmp.width, &game->tmp.height)))
+		return (write(2, "Error\nOpening xpm file\n", 23));
+	game->tmp.addr = mlx_get_data_addr(game->tmp.img,
+									  &game->tmp.bits_per_pixel, 
+									  &game->tmp.line_length,
+									  &game->tmp.endian);
 	game->img.addr = mlx_get_data_addr(game->img.img,
 									  &game->img.bits_per_pixel,
 									  &game->img.line_length,
 									  &game->img.endian);
 	game->h = cub->res_y;
 	game->w = cub->res_x;
-	if (!(game->buffer = malloc(sizeof(int) * game->h)))
-		return (free_game(game));
 	game->cub = *cub;
+	for (int i = 0; i <= game->cub.y; ++i)
+		for (int j = 0; j <= game->cub.x; ++j)
+			if (game->cub.map[i][j] == 'N')
+				game->cub.map[i][j] = '0';
+	game->player.posx = 4.0;
+	game->player.posy = 4.0;
+	game->player.dirx = -1.0;
+	game->player.diry = 0.0;
+	game->player.planex = 0.0;
+	game->player.planey = 0.66;
+	game->player.movespeed = 0.12;
+	game->player.rotspeed = 0.05;
 	return (1);
 }
 
@@ -245,6 +265,15 @@ int		exit_all(t_game *game)
 	free_game(game);
 	free_cub(&game->cub);
 	exit (0);
+}
+
+int tmp(t_game *game)
+{
+	mlx_hook(game->win, 2, 0, &get_key_pressed, game);
+	mlx_hook(game->win, 3, 0, &get_key_released, game);
+	mlx_loop_hook(game->mlx, &loop, game);
+	mlx_loop(game->mlx);
+	return (0);
 }
 
 int		main(int argc, char **argv)
@@ -258,27 +287,6 @@ int		main(int argc, char **argv)
 		return (write(1, "Error\nCub parse\n", 17));
 	if (!init_game(&game, &cub))
 		return (write(1, "Error\nGame init\n", 17));
-	if (!(game.tmp.img = mlx_xpm_file_to_image(game.win, "../resources/Texture-nord-256.xpm", &game.tmp.width, &game.tmp.height)))
-		return (write(2, "Error\nOpening xpm file\n", 23));
-	game.tmp.addr = mlx_get_data_addr(game.tmp.img,
-									  &game.tmp.bits_per_pixel, 
-									  &game.tmp.line_length,
-									  &game.tmp.endian);
-	game.player.posx = 4.0;
-	game.player.posy = 4.0;
-	game.player.dirx = -1.0;
-	game.player.diry = 0.0;
-	game.player.planex = 0.0;
-	game.player.planey = 0.66;
-	game.player.movespeed = 0.12;
-	game.player.rotspeed = 0.05;
-	for (int i = 0; i <= game.cub.y; ++i)
-		for (int j = 0; j <= game.cub.x; ++j)
-			if (game.cub.map[i][j] == 'N')
-				game.cub.map[i][j] = '0';
-	mlx_hook(game.win, 2, 0, &get_key_pressed, &game);
-	mlx_hook(game.win, 3, 0, &get_key_released, &game);
-	mlx_loop_hook(game.mlx, &loop, &game);
-	mlx_loop(game.mlx);
+	tmp(&game);
 	return (1);
 }
