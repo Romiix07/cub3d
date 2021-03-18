@@ -6,7 +6,7 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:27:16 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/16 15:04:41 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:46:50 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ int				ceiling_check(char *line, t_cub *cub, int index);
 int				map_verif(char *line, t_cub *cub);
 int				error_code(char c);
 int				cub_parse(char *str, t_cub *cub);
-
+int				ft_strcmp(const char *s1, const char *s2);
 #endif

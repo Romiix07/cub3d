@@ -6,32 +6,27 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 12:44:48 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/16 15:09:10 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:05:27 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		check_map_format(char *str)
+int		check_file_format(char *str)
 {
 	int i;
 
 	i = 0;
-	while (str[i + 1])
-		i++;
-	while (str[i] != '.')
-		i--;
-	if (str[i + 1] == 'c' && str[i + 2] == 'u' && str[i + 3] == 'b' &&
-			str[i + 4] == '\0')
-	{
-		if ((i = open(str, O_RDONLY)) == -1)
-			return (0);
-		return (i);
-	}
+	while (str[i] && str[i] != '.')
+		++i;
+	if (!ft_strcmp(&str[i], ".cub"))
+		if ((i = open(str, O_RDONLY)) > -1)
+			return (i);
 	write(2, "Error\n", 6);
 	write(2, "Wrong Format for ", 18);
 	write(2, str, ft_strlen(str));
-	return (0);
+	write(2, "\n", 1);
+	return (-1);
 }
 
 int		error_code(char c)
@@ -100,7 +95,7 @@ int		cub_parse(char *str, t_cub *cub)
 	char	*line;
 
 	cub->start = 0;
-	if ((fd = check_map_format(str)) == 0)
+	if ((fd = check_file_format(str)) == -1)
 		return (0);
 	while ((cub->error = get_next_line(fd, &line)) != 0)
 	{
@@ -118,15 +113,6 @@ int		cub_parse(char *str, t_cub *cub)
 			return (0);
 		free(line);
 	}
+	close(fd);
 	return (ft_map(cub));
 }
-/*
-int		main(void)
-{
-	t_cub	cub;
-
-	if (cub_parse("map.cub", &cub) == 1)
-		write(1, "OUI", 3);
-	return (0);
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/16 15:11:38 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:57:57 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct	s_game {
 	t_cub		cub;
 }				t_game;
 
-int	loop(struct s_game *game, struct s_cub cub);
+int	raycast(struct s_game *game, struct s_cub cub);
 int draw_buffer(struct s_game *game, int x, int *buffer);
 
 #endif

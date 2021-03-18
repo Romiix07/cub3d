@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/17 13:30:55 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:00:00 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,10 @@ void	get_base_values(t_game *game, t_player *player, t_camera *camera, int x)
 	camera->deltadisty = fabs(1 / camera->raydiry);
 }
 
-int loop(t_game *game, t_cub cub)
+int raycast(t_game *game, t_cub cub)
 {
-	int x;
-	int color;
+	int	x;
+	int	index;
 
 	x = 0;
 	while (x < game->w)
@@ -153,19 +153,18 @@ int loop(t_game *game, t_cub cub)
 		get_perp_drawstartend(game, &game->player, &game->camera);
 
 /*		//get color
-		if (game->camera.mapy > game->player.posy && game->camera.side == 1) //EAST
-			color = RGB_GREEN;
-        else if (game->camera.mapx > game->player.posx && game->camera.side == 0)
-			color = RGB_RED; //SOUTH
-        else if (game->camera.mapy < game->player.posy && game->camera.side == 1) //WEST
-			color = RGB_BLUE;
-        else //NORTH
-			color = RGB_WHITE;
+		if (game->camera.mapy > game->player.posy && game->camera.side == 1)      //EAST
+			index = RGB_GREEN;
+        else if (game->camera.mapx > game->player.posx && game->camera.side == 0) //SOUTH
+			index = RGB_RED;
+        else if (game->camera.mapy <= game->player.posy && game->camera.side == 1) //WEST
+			index = RGB_BLUE;
+        else                                                                      //NORTH
+			index = RGB_WHITE;
 */
 
 		get_wallx_texx(game, &game->player, &game->camera);
 		fill_buffer(game, &game->camera);
-//		draw_vertical_line(game, x, color);
 		draw_buffer(game, x, game->buffer);
 		++x;
 	}

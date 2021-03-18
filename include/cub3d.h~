@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/16 14:58:47 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/16 15:11:38 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ typedef struct	s_camera {
 typedef struct	s_game {
 	void		*mlx;
 	void		*win;
-	int			tab_x_size;
 	int			*buffer;
 	int			h;
 	int			w;
