@@ -7,7 +7,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 15:02:08 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:32:28 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,24 @@ int		display(t_game *game)
 	return 0;
 }
 
+int		free_tex(t_game *g)
+{
+	int	i = -1;
+
+	if (g->tex)
+	{
+		while (++i < 4)
+		{
+			if (g->tex[i].img)
+				free(g->tex[i].img);
+			else
+				break ;
+		}
+		free(g->tex);
+	}
+	return (0);
+}
+
 int		free_game(t_game *game)
 {
 	int	i;
@@ -140,13 +158,12 @@ int		free_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->img.img);
 	if (game->mlx)
 		free(game->mlx);
+	free_tex(game);
 	return (0);
 }
 
 int		free_cub(t_cub *cub)
 {
-	if (cub->str)
-		free(cub->str);
 	if (cub->north)
 		free(cub->north);
 	if (cub->east)
@@ -170,10 +187,6 @@ int		get_tex(t_game *g, t_cub *c)
 {
 	int	i;
 
-	printf("north = '%s'\n", c->north);
-	printf("south = '%s'\n", c->south);
-	printf("west = '%s'\n", c->west);
-	printf("east = '%s'\n", c->east);
 	if (!(g->tex = malloc(sizeof(t_img) * 4)))
 		return (0);
 	if (!(g->tex[0].img = mlx_xpm_file_to_image(g->mlx, c->north,
@@ -223,10 +236,10 @@ int		init_game(t_game *game, t_cub *cub)
 				game->cub.map[i][j] = '0';
 	game->player.posx = 4.0;
 	game->player.posy = 4.0;
-	game->player.dirx = -1.0;
-	game->player.diry = 0.0;
-	game->player.planex = 0.0;
-	game->player.planey = 0.66;
+	game->player.dirx = 0.0;
+	game->player.diry = 1.0;
+	game->player.planex = 0.60;
+	game->player.planey = 0.00;
 	game->player.movespeed = 0.12;
 	game->player.rotspeed = 0.05;
 	return (1);
