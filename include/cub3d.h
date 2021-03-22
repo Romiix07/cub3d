@@ -6,22 +6,21 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 10:51:58 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:15:49 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-//# include <mlx.h> //for mac os
-# include "../minilibx/mlx.h"
+# include <mlx.h>
 # include "../utils/cub.h"
 # include "../utils/get_next_line.h"
 
 typedef struct	s_img {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_length;
 	int		endian;
 	int		width;
@@ -77,9 +76,8 @@ typedef struct	s_game {
 	void			*win;
 	int				h;
 	int				w;
-	char			swap;
-	t_img			*img;
-	t_img tmp; //temporaire, texture a afficher
+	t_img			*tex;
+	t_img			img;
 	t_player		player;
 	t_camera		camera;
 	t_cub			cub;
@@ -87,6 +85,6 @@ typedef struct	s_game {
 
 int		raycast(struct s_game *game, struct s_cub cub);
 int		draw_buffer(struct s_game *game, int x, unsigned int *buffer);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	my_mlx_pixel_put(t_img *img, int x, int y, unsigned int color);
 
 #endif

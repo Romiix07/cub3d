@@ -7,7 +7,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 10:55:54 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:56:09 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,46 +19,61 @@
 #include "cub3d.h"
 #include "cub3d_defines.h"
 
-void	fill_buffer(t_game *game, t_camera *cam, int x)
+void	fill_buffer(t_game *game, t_camera *cam, int x, t_img img)
 {
 	int	y;
 	int color;
 
 	y = -1;
 	while (++y < cam->drawstart)
-		my_mlx_pixel_put(&game->img[game->swap], x, y, game->cub.ceiling_color);
-	cam->step = 1.0 * game->tmp.height / cam->lineheight;
+		my_mlx_pixel_put(&game->img, x, y, game->cub.ceiling_color);
+	cam->step = 1.0 * img.height / cam->lineheight;
 	cam->texpos = (cam->drawstart - game->h / 2 + cam->lineheight / 2) *
 		cam->step;
 	while (y < cam->drawend)
 	{
-		cam->texy = (int)cam->texpos & (game->tmp.height - 1);
+		cam->texy = (int)cam->texpos & (img.height - 1);
 		cam->texpos += cam->step;
-		my_mlx_pixel_put(&game->img[game->swap], x, y, *(int *)
-						 (game->tmp.addr + (cam->texy *
-											game->tmp.line_length +
-											cam->texx *
-											(game->tmp.bits_per_pixel /
-											 8))));
+		my_mlx_pixel_put(&game->img, x, y, *(int *)(img.addr +
+													(cam->texy *
+													 img.line_length +
+													 cam->texx *
+													 (img.bpp /
+													  8))));
 		++y;
 	}
 	while ((++y - 1) < game->h)
-		my_mlx_pixel_put(&game->img[game->swap], x, y - 1,
+		my_mlx_pixel_put(&game->img, x, y - 1,
 						 game->cub.floor_color);
 }
 
-void	get_wallx_texx(t_game *game, t_player *player, t_camera *cam)
+void	get_wallx_texx(t_game *game, t_player *player, t_camera *cam, t_img img)
 {
 	if (cam->side == 0)
 		cam->wallx = player->posy + cam->perpwalldist * cam->raydiry;
 	else
 		cam->wallx = player->posx + cam->perpwalldist * cam->raydirx;
 	cam->wallx -= cam->wallx < 0 ? (int)cam->wallx - 1 : (int)cam->wallx;
-	cam->texx = (int)(cam->wallx * (double)game->tmp.width);
+	cam->texx = (int)(cam->wallx * (double)img.width);
 	if (cam->side == 0 && cam->raydirx > 0)
-		cam->texx = game->tmp.width - cam->texx - 1;
+		cam->texx = img.width - cam->texx - 1;
 	if (cam->side == 1 && cam->raydiry < 0)
-		cam->texx = game->tmp.width - cam->texx - 1;
+		cam->texx = img.width - cam->texx - 1;
+}
+
+int		get_color(t_game *game)
+{
+	int	index;
+
+	if (game->camera.mapy > game->player.posy && game->camera.side == 1)
+		index = EAST;
+	else if (game->camera.mapx > game->player.posx && game->camera.side == 0)
+		index = SOUTH;
+	else if (game->camera.mapy <= game->player.posy && game->camera.side == 1)
+		index = WEST;
+	else
+		index = NORTH;
+	return (index);
 }
 
 void	get_perp_drawstartend(t_game *game, t_player *player, t_camera *camera)
@@ -154,7 +169,7 @@ int raycast(t_game *game, t_cub cub)
 		get_step_sidedist(&game->player, &game->camera);
 		perform_dda(&game->player, &game->camera, cub);
 		get_perp_drawstartend(game, &game->player, &game->camera);
-
+		index = get_color(game);
 /*		//get color
 		if (game->camera.mapy > game->player.posy && game->camera.side == 1)      //EAST
 			index = RGB_GREEN;
@@ -165,9 +180,8 @@ int raycast(t_game *game, t_cub cub)
         else                                                                      //NORTH
 			index = RGB_WHITE;
 */
-		get_wallx_texx(game, &game->player, &game->camera);
-		fill_buffer(game, &game->camera, x);
-//		draw_buffer(game, x, game->buffer);
+		get_wallx_texx(game, &game->player, &game->camera, game->tex[index]);
+		fill_buffer(game, &game->camera, x, game->tex[index]);
 		++x;
 	}
 	return (1);

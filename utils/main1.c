@@ -7,11 +7,10 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 11:04:15 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:02:08 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
@@ -113,22 +112,20 @@ int		get_key_released(int keycode, t_game *game)
     return (0);
 }
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *img, int x, int y, unsigned int color)
 {
-    char	*dst;
+    char	*dst; 
 
-    dst = (img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8)));
+    dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
     *(unsigned int *)dst = color;
 }
 
 int		display(t_game *game)
 {
-	game->swap = game->swap == 0 ? 1 : 0;
 	move(game, &game->player, game->cub);
 //	printf("posx = %f, posy = %f\n", game->player.posx, game->player.posy);
 	raycast(game, game->cub);
-	mlx_put_image_to_window(game->mlx, game->win, game->img[game->swap].img,
-							0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	return 0;
 }
 
@@ -139,16 +136,8 @@ int		free_game(t_game *game)
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	i = -1;
-	if (game->img)
-	{
-		if (game->img[0].img)
-			mlx_destroy_image(game->mlx, game->img[0].img);
-		if (game->img[1].img)
-			mlx_destroy_image(game->mlx, game->img[1].img);
-		free(game->img);
-	}
-	if (game->tmp.img)
-		mlx_destroy_image(game->mlx, game->tmp.img);
+	if (game->img.img)
+		mlx_destroy_image(game->mlx, game->img.img);
 	if (game->mlx)
 		free(game->mlx);
 	return (0);
@@ -177,38 +166,60 @@ int		free_cub(t_cub *cub)
 	return (0);
 }
 
+int		get_tex(t_game *g, t_cub *c)
+{
+	int	i;
+
+	printf("north = '%s'\n", c->north);
+	printf("south = '%s'\n", c->south);
+	printf("west = '%s'\n", c->west);
+	printf("east = '%s'\n", c->east);
+	if (!(g->tex = malloc(sizeof(t_img) * 4)))
+		return (0);
+	if (!(g->tex[0].img = mlx_xpm_file_to_image(g->mlx, c->north,
+												&g->tex[0].width,
+												&g->tex[0].height)))
+		return (0);
+	if (!(g->tex[1].img = mlx_xpm_file_to_image(g->mlx, c->south,
+												&g->tex[1].width,
+												&g->tex[1].height)))
+		return (0);
+	if (!(g->tex[2].img = mlx_xpm_file_to_image(g->mlx, c->west,
+												&g->tex[2].width,
+												&g->tex[2].height)))
+		return (0);
+	if (!(g->tex[3].img = mlx_xpm_file_to_image(g->mlx, c->east,
+												&g->tex[3].width,
+												&g->tex[3].height)))
+		return (0);
+	i = -1;
+	while (++i < 4)
+		g->tex[i].addr = mlx_get_data_addr(g->tex[i].img, &g->tex[i].bpp,
+									&g->tex[i].line_length,	&g->tex[i].endian);
+	return (1);
+}
+
 int		init_game(t_game *game, t_cub *cub)
 {
 	if (!(game->mlx = mlx_init()))
-		return (free_game(game));
-	if (!(game->win = mlx_new_window(game->mlx, cub->res_x, cub->res_y, "cub3d")))
-		return (free_game(game));
-	if (!(game->img = malloc(sizeof(t_img) * 2)))
-		return (free_game(game));
-	if (!(game->img[0].img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))
-		return (free_game(game));
-	if (!(game->img[1].img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))
-		return (free_game(game));
-	if (!(game->tmp.img = mlx_xpm_file_to_image(game->win, "../resources/redbrick.xpm", &game->tmp.width, &game->tmp.height)))
-		return (write(2, "Error\nOpening xpm file\n", 23));
-	game->tmp.addr = mlx_get_data_addr(game->tmp.img,
-									  &game->tmp.bits_per_pixel, 
-									  &game->tmp.line_length,
-									  &game->tmp.endian);
-	game->img[0].addr = mlx_get_data_addr(game->img[0].img,
-									  &game->img[0].bits_per_pixel,
-									  &game->img[0].line_length,
-									  &game->img[0].endian);
-	game->img[1].addr = mlx_get_data_addr(game->img[1].img,
-									  &game->img[1].bits_per_pixel,
-									  &game->img[1].line_length,
-									  &game->img[1].endian);
+		return (free_game(game) + free_cub(cub));
+	if (!(game->win = mlx_new_window(game->mlx, cub->res_x, cub->res_y, 
+									 "Merci Christophe, mais fais un effort")))
+		return (free_game(game) + free_cub(cub));
+	if (!(game->img.img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))
+		return (free_game(game) + free_cub(cub));
+	if (!(get_tex(game, cub)))
+		return (free_game(game) + free_cub(cub));
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp,
+									  &game->img.line_length,
+									  &game->img.endian);
 	game->h = cub->res_y;
 	game->w = cub->res_x;
 	game->cub = *cub;
 	for (int i = 0; i <= game->cub.y; ++i)
 		for (int j = 0; j <= game->cub.x; ++j)
-			if (game->cub.map[i][j] == 'N')
+			if (game->cub.map[i][j] == 'N' || game->cub.map[i][j] == 'S' ||
+				game->cub.map[i][j] == 'E' || game->cub.map[i][j] == 'W')
 				game->cub.map[i][j] = '0';
 	game->player.posx = 4.0;
 	game->player.posy = 4.0;
@@ -218,7 +229,6 @@ int		init_game(t_game *game, t_cub *cub)
 	game->player.planey = 0.66;
 	game->player.movespeed = 0.12;
 	game->player.rotspeed = 0.05;
-	game->swap = 0;
 	return (1);
 }
 
@@ -244,11 +254,14 @@ int		main(int argc, char **argv)
 	t_cub	cub;
 
 	if (argc < 2)
-		return (write(2, "Error\nInvalid arguments count\n", 30));
+		return (write(2, "Error\nInvalid arguments\n", 23));
 	if (!cub_parse(argv[1], &cub))
-		return (write(1, "Error\nCub parse\n", 17));
+		return (0);
 	if (!init_game(&game, &cub))
-		return (write(1, "Error\nGame init\n", 17));
+		return (write(2, "Error\nGame init\n", 17));
 	main_loop(&game);
 	return (1);
 }
+
+
+//free CUB->STR

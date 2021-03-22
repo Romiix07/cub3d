@@ -6,12 +6,20 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/08 15:35:31 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:44:11 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_DEFINES_H
 # define CUB3D_DEFINES_H
+
+enum	e_directions
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST
+};
 
 # define KEY_W		13
 # define KEY_A		0
