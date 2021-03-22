@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/18 12:08:50 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 10:51:58 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ typedef struct	s_game {
 	void			*win;
 	int				h;
 	int				w;
-	t_img			img;
+	char			swap;
+	t_img			*img;
 	t_img tmp; //temporaire, texture a afficher
 	t_player		player;
 	t_camera		camera;

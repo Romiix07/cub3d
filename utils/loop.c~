@@ -7,7 +7,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 10:55:54 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:12:17 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	fill_buffer(t_game *game, t_camera *cam, int x)
 
 	y = -1;
 	while (++y < cam->drawstart)
-		my_mlx_pixel_put(&game->img[game->swap], x, y, game->cub.ceiling_color);
+		my_mlx_pixel_put(&game->img, x, y, game->cub.ceiling_color);
 	cam->step = 1.0 * game->tmp.height / cam->lineheight;
 	cam->texpos = (cam->drawstart - game->h / 2 + cam->lineheight / 2) *
 		cam->step;
@@ -34,7 +34,7 @@ void	fill_buffer(t_game *game, t_camera *cam, int x)
 	{
 		cam->texy = (int)cam->texpos & (game->tmp.height - 1);
 		cam->texpos += cam->step;
-		my_mlx_pixel_put(&game->img[game->swap], x, y, *(int *)
+		my_mlx_pixel_put(&game->img, x, y, *(int *)
 						 (game->tmp.addr + (cam->texy *
 											game->tmp.line_length +
 											cam->texx *
@@ -43,8 +43,7 @@ void	fill_buffer(t_game *game, t_camera *cam, int x)
 		++y;
 	}
 	while ((++y - 1) < game->h)
-		my_mlx_pixel_put(&game->img[game->swap], x, y - 1,
-						 game->cub.floor_color);
+		my_mlx_pixel_put(&game->img, x, y - 1, game->cub.floor_color);
 }
 
 void	get_wallx_texx(t_game *game, t_player *player, t_camera *cam)

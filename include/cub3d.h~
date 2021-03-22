@@ -6,13 +6,15 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/18 11:30:47 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 10:51:28 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+//# include <mlx.h> //for mac os
+# include "../minilibx/mlx.h"
 # include "../utils/cub.h"
 # include "../utils/get_next_line.h"
 
@@ -73,9 +75,9 @@ typedef struct	s_camera {
 typedef struct	s_game {
 	void			*mlx;
 	void			*win;
-	unsigned int	*buffer;
 	int				h;
 	int				w;
+	char			swap;
 	t_img			img;
 	t_img tmp; //temporaire, texture a afficher
 	t_player		player;
@@ -83,7 +85,8 @@ typedef struct	s_game {
 	t_cub			cub;
 }				t_game;
 
-int	raycast(struct s_game *game, struct s_cub cub);
-int draw_buffer(struct s_game *game, int x, unsigned int *buffer);
+int		raycast(struct s_game *game, struct s_cub cub);
+int		draw_buffer(struct s_game *game, int x, unsigned int *buffer);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 #endif

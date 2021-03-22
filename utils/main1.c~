@@ -7,7 +7,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 11:04:15 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 11:02:45 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,68 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
     char	*dst;
 
+//	printf("color = %0x\n", (unsigned int)color);
     dst = (img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8)));
     *(unsigned int *)dst = color;
 }
 
-int		display(t_game *game)
+/*
+int		put_image(int keycode, t_game *game)
+{
+	int a;
+	int b;
+	int color;
+
+	a = -1;
+	color = 0x000000;
+	mlx_clear_window(game->mlx, game->win);
+	game->img.addr = mlx_get_data_addr(game->img.img,
+									   &game->img.bits_per_pixel,
+									   &game->img.line_length,
+									   &game->img.endian);
+	while (++a < w)
+	{
+		b = -1;
+		while (++b < h)
+			my_mlx_pixel_put(&game->img, a, b, color);
+	}
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	return (0);
+}
+*/
+
+ /*
+int	draw_vertical_line(t_game *game, int x, int color)
+{
+	int	y;
+
+	y = game->camera.drawstart;
+	mlx_clear_window(game->mlx, game->win);
+	while (y < game->camera.drawend)
+	{
+		my_mlx_pixel_put(&game->img, x, y, color);
+		++y;
+	}
+	return (0);
+}
+*/
+
+/*
+int	draw_buffer(t_game *game, int x, unsigned int *buffer)
+{
+	int	y;
+
+	y = 0;
+	while (y < game->h)
+	{
+		my_mlx_pixel_put(&game->img, x, y, buffer[y]);
+		++y;
+	}
+	return (0);
+}
+*/
+
+int	loop(t_game *game)
 {
 	game->swap = game->swap == 0 ? 1 : 0;
 	move(game, &game->player, game->cub);
@@ -229,11 +286,11 @@ int		exit_all(t_game *game)
 	exit (0);
 }
 
-int		main_loop(t_game *game)
+int main_loop(t_game *game)
 {
 	mlx_hook(game->win, 2, 0, &get_key_pressed, game);
 	mlx_hook(game->win, 3, 0, &get_key_released, game);
-	mlx_loop_hook(game->mlx, &display, game);
+	mlx_loop_hook(game->mlx, &loop, game);
 	mlx_loop(game->mlx);
 	return (0);
 }
