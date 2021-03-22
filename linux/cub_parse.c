@@ -6,7 +6,7 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 12:44:48 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/18 11:05:27 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 15:23:00 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int		ft_map(t_cub *cub)
 		return (0);
 	if (map_edit(cub) == 0)
 		return (0);
+	free(cub->str);
 	return (1);
 }
 

@@ -6,14 +6,14 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 14:15:49 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 18:21:34 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <mlx.h>
+# include "../minilibx_linux/mlx.h"
 # include "../utils/cub.h"
 # include "../utils/get_next_line.h"
 

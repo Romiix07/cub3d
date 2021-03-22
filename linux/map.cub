@@ -1,8 +1,8 @@
 R 1500 1000
-NO abcdef 
-SO ghijkl
-EA mnopqr
-WE stuvwx
+NO ../resources/Texture-nord-256.xpm
+SO ../resources/Texture-sud-256.xpm
+EA ../resources/Texture-est-256.xpm
+WE ../resources/Texture-ouest-256.xpm
 
 S yz
 F 120,90,31
@@ -16,14 +16,3 @@ C 96,210,240
 1000000000000000001
 1000000000000000001
  11111111111111111
-
-1111111111
-1000000001
-1000000001
-1000000001
-1000000001
-1000N00001
-1000000001
-1000000001
-1000000001
-1111111111

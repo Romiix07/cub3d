@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 14:44:11 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/22 17:57:56 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ enum	e_directions
 	WEST,
 	EAST
 };
+
+# define LKEY_W		119
+# define LKEY_A		97
+# define LKEY_S		115
+# define LKEY_D		100
+# define LKEY_LARR	65361
+# define LKEY_RARR	65363
+# define LKEY_ESC	65307
 
 # define KEY_W		13
 # define KEY_A		0

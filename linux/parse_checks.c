@@ -6,7 +6,7 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 10:53:30 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/15 13:08:24 by cmarien          ###   ########.fr       */
+/*   Updated: 2021/03/22 15:03:48 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ int		texture_path_check(char *line, t_cub *cub, int index, char orientation)
 	if (line[index] == '\0')
 		return (error_code('T'));
 	if (orientation == 'N')
-		cub->north = ft_substr(line, index, ft_strlen(line) - (index + 1));
+		cub->north = ft_substr(line, index, ft_strlen(line) - (index));
 	else if (orientation == 'S')
-		cub->south = ft_substr(line, index, ft_strlen(line) - (index + 1));
+		cub->south = ft_substr(line, index, ft_strlen(line) - (index));
 	else if (orientation == 'E')
-		cub->east = ft_substr(line, index, ft_strlen(line) - (index + 1));
+		cub->east = ft_substr(line, index, ft_strlen(line) - (index));
 	else if (orientation == 'W')
-		cub->west = ft_substr(line, index, ft_strlen(line) - (index + 1));
+		cub->west = ft_substr(line, index, ft_strlen(line) - (index));
 	else if (orientation == 's')
-		cub->sprite = ft_substr(line, index, ft_strlen(line) - (index + 1));
+		cub->sprite = ft_substr(line, index, ft_strlen(line) - (index));
 	else
 		return (error_code('T'));
 	while (line[index + 1])
