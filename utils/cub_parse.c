@@ -6,7 +6,7 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 12:44:48 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/22 15:23:00 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/23 11:20:19 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		cub_parse(char *str, t_cub *cub)
 	cub->start = 0;
 	if ((fd = check_file_format(str)) == -1)
 		return (0);
-	while ((cub->error = get_next_line(fd, &line)) != 0)
+	while ((cub->error = get_next_line(fd, &line)) >= 0)
 	{
 		if (cub->error < 0)
 			return (0);

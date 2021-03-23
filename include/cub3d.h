@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 18:21:34 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:48:33 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ typedef struct	s_game {
 int		raycast(struct s_game *game, struct s_cub cub);
 int		draw_buffer(struct s_game *game, int x, unsigned int *buffer);
 void	my_mlx_pixel_put(t_img *img, int x, int y, unsigned int color);
+int     exit_all(t_game *game);
 
 #endif

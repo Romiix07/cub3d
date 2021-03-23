@@ -7,7 +7,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 14:56:09 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:34:40 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,16 +170,6 @@ int raycast(t_game *game, t_cub cub)
 		perform_dda(&game->player, &game->camera, cub);
 		get_perp_drawstartend(game, &game->player, &game->camera);
 		index = get_color(game);
-/*		//get color
-		if (game->camera.mapy > game->player.posy && game->camera.side == 1)      //EAST
-			index = RGB_GREEN;
-        else if (game->camera.mapx > game->player.posx && game->camera.side == 0) //SOUTH
-			index = RGB_RED;
-        else if (game->camera.mapy <= game->player.posy && game->camera.side == 1) //WEST
-			index = RGB_BLUE;
-        else                                                                      //NORTH
-			index = RGB_WHITE;
-*/
 		get_wallx_texx(game, &game->player, &game->camera, game->tex[index]);
 		fill_buffer(game, &game->camera, x, game->tex[index]);
 		++x;

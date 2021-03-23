@@ -7,7 +7,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/22 15:32:28 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:54:32 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 #include "cub3d.h"
 #include "cub3d_defines.h"
 #include "cub.h"
-
-int		exit_all(t_game *game);
 
 int		move(t_game *game, t_player *player, t_cub cub)
 {
@@ -138,7 +136,7 @@ int		free_tex(t_game *g)
 		while (++i < 4)
 		{
 			if (g->tex[i].img)
-				free(g->tex[i].img);
+				mlx_destroy_image(g->mlx, g->tex[i].img);
 			else
 				break ;
 		}
@@ -151,14 +149,14 @@ int		free_game(t_game *game)
 {
 	int	i;
 
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
 	i = -1;
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
+	free_tex(game);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
 		free(game->mlx);
-	free_tex(game);
 	return (0);
 }
 
@@ -176,7 +174,7 @@ int		free_cub(t_cub *cub)
 		free(cub->sprite);
 	if (cub->map)
 	{
-		while ((--cub->y + 1) > 0)
+		while ((--cub->y + 1) >= 0)
 			free(cub->map[cub->y + 1]);
 		free(cub->map);
 	}
@@ -216,8 +214,7 @@ int		init_game(t_game *game, t_cub *cub)
 {
 	if (!(game->mlx = mlx_init()))
 		return (free_game(game) + free_cub(cub));
-	if (!(game->win = mlx_new_window(game->mlx, cub->res_x, cub->res_y, 
-									 "Merci Christophe, mais fais un effort")))
+	if (!(game->win = mlx_new_window(game->mlx, cub->res_x, cub->res_y, "T'es Finito")))
 		return (free_game(game) + free_cub(cub));
 	if (!(game->img.img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))
 		return (free_game(game) + free_cub(cub));
@@ -242,6 +239,21 @@ int		init_game(t_game *game, t_cub *cub)
 	game->player.planey = 0.00;
 	game->player.movespeed = 0.12;
 	game->player.rotspeed = 0.05;
+	printf("mlx = \t%p\n", game->mlx);
+	printf("win = \t%p\n", game->win);
+	printf("img = \t%p\n", game->img.img);
+	printf("tex = \t%p\n", game->tex);
+	for (int i = 0; i < 4; ++i)
+		printf("tex[%d] = %p\n", i, game->tex[i].img);
+	printf("map = \t%p\n", cub->map);
+	for (int i = 0; i < 4; ++i)
+		printf("map[%d] = \t%p\n", i, cub->map[i]);
+	printf("str = \t%p\n", cub->str);
+	printf("north = %p\n", cub->north);
+	printf("south = %p\n", cub->south);
+	printf("east = \t%p\n", cub->east);
+	printf("west = \t%p\n", cub->west);
+	printf("sprite = %p\n", cub->sprite);
 	return (1);
 }
 
@@ -249,6 +261,8 @@ int		exit_all(t_game *game)
 {
 	free_game(game);
 	free_cub(&game->cub);
+	while (1)
+		;
 	exit (0);
 }
 
@@ -275,6 +289,3 @@ int		main(int argc, char **argv)
 	main_loop(&game);
 	return (1);
 }
-
-
-//free CUB->STR
