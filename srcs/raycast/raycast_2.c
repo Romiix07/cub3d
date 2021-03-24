@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:16:08 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 12:27:29 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/24 13:59:23 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 void	fill_line(t_game *game, t_camera *cam, int x, t_img img)
 {
 	int	y;
-	int color;
 
 	y = -1;
 	while (++y < cam->drawstart)
@@ -41,7 +40,7 @@ void	fill_line(t_game *game, t_camera *cam, int x, t_img img)
 						game->cub.floor_color);
 }
 
-void	get_wallx_texx(t_game *game, t_player *player, t_camera *cam, t_img img)
+void	get_wallx_texx(t_player *player, t_camera *cam, t_img img)
 {
 	if (cam->side == 0)
 		cam->wallx = player->posy + cam->perpwalldist * cam->raydiry;

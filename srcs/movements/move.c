@@ -6,13 +6,13 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 13:38:47 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/24 14:03:20 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	move_d(t_game *game, t_player *player, t_cub cub)
+static void	move_d(t_player *player, t_cub cub)
 {
 	if (player->move_d)
 	{
@@ -30,7 +30,7 @@ static void	move_d(t_game *game, t_player *player, t_cub cub)
 	}
 }
 
-static void	move_a(t_game *game, t_player *player, t_cub cub)
+static void	move_a(t_player *player, t_cub cub)
 {
 	if (player->move_a)
 	{
@@ -48,7 +48,7 @@ static void	move_a(t_game *game, t_player *player, t_cub cub)
 	}
 }
 
-static void	move_s(t_game *game, t_player *player, t_cub cub)
+static void	move_s(t_player *player, t_cub cub)
 {
 	if (player->move_s)
 	{
@@ -66,7 +66,7 @@ static void	move_s(t_game *game, t_player *player, t_cub cub)
 	}
 }
 
-static void	move_w(t_game *game, t_player *player, t_cub cub)
+static void	move_w(t_player *player, t_cub cub)
 {
 	if (player->move_w)
 	{
@@ -84,13 +84,13 @@ static void	move_w(t_game *game, t_player *player, t_cub cub)
 	}
 }
 
-int			move(t_game *game, t_player *player, t_cub cub)
+int			move(t_player *player, t_cub cub)
 {
-	move_w(game, player, cub);
-	move_s(game, player, cub);
-	move_a(game, player, cub);
-	move_d(game, player, cub);
-	rot_r(game, player, cub);
-	rot_l(game, player, cub);
+	move_w(player, cub);
+	move_s(player, cub);
+	move_a(player, cub);
+	move_d(player, cub);
+	rot_r(player);
+	rot_l(player);
 	return (0);
 }

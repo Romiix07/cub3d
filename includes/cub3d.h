@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 13:50:14 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/24 14:03:31 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,15 @@ void			my_mlx_pixel_put(t_img *img, int x, int y, unsigned int color);
 int				exit_all(t_game *game);
 int				free_game(t_game *game);
 int				free_cub(t_cub *cub);
-void			rot_r(t_game *game, t_player *player, t_cub cub);
-void			rot_l(t_game *game, t_player *player, t_cub cub);
-int				move(t_game *game, t_player *player, t_cub cub);
+void			rot_r(t_player *player);
+void			rot_l(t_player *player);
+int				move(t_player *player, t_cub cub);
 int				get_key_released(int keycode, t_game *game);
 int				get_key_pressed(int keycode, t_game *game);
 void			get_perp_drawstartend(t_game *game, t_player *player,
 									t_camera *camera);
 int				select_texture(t_game *game);
-void			get_wallx_texx(t_game *game, t_player *playr, t_camera *cam,
-							t_img img);
+void			get_wallx_texx(t_player *playr, t_camera *cam, t_img img);
 void			fill_line(t_game *game, t_camera *cam, int x, t_img img);
 int				free_game(t_game *game);
 int				free_tex(t_game *game);

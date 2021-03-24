@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 13:45:51 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/24 14:03:40 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static int	display(t_game *game)
 {
-	move(game, &game->player, game->cub);
+	move(&game->player, game->cub);
 	raycast(game, game->cub);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	return (0);

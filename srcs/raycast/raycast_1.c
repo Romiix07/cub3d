@@ -6,14 +6,14 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 12:27:23 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/24 13:59:32 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "cub3d.h"
 
-static void	perform_dda(t_player *player, t_camera *camera, t_cub cub)
+static void	perform_dda(t_camera *camera, t_cub cub)
 {
 	camera->hit = 0;
 	while (camera->hit == 0)
@@ -85,10 +85,10 @@ int			raycast(t_game *game, t_cub cub)
 	{
 		get_base_values(game, &game->player, &game->camera, x);
 		get_step_sidedist(&game->player, &game->camera);
-		perform_dda(&game->player, &game->camera, cub);
+		perform_dda(&game->camera, cub);
 		get_perp_drawstartend(game, &game->player, &game->camera);
 		index = select_texture(game);
-		get_wallx_texx(game, &game->player, &game->camera, game->tex[index]);
+		get_wallx_texx(&game->player, &game->camera, game->tex[index]);
 		fill_line(game, &game->camera, x, game->tex[index]);
 		++x;
 	}

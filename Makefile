@@ -22,7 +22,7 @@ NAME		=	cub3D
 
 LIBS		=	-L/usr/lib -L./mlx -lmlx_Linux -lXext -lX11 -lm -lz
 
-CFLAGS      =   
+CFLAGS      =   -Wall -Wextra -Werror
 
 CC			=	gcc
 

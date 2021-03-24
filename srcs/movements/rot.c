@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 11:59:42 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 13:36:28 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/24 14:00:44 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "cub3d_defines.h"
 #include "cub.h"
 
-void	rot_l(t_game *game, t_player *player, t_cub cub)
+void	rot_l(t_player *player)
 {
 	double olddirx;
 	double oldplanex;
@@ -35,7 +35,7 @@ void	rot_l(t_game *game, t_player *player, t_cub cub)
 	}
 }
 
-void	rot_r(t_game *game, t_player *player, t_cub cub)
+void	rot_r(t_player *player)
 {
 	double olddirx;
 	double oldplanex;
