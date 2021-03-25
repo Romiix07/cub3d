@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/25 14:57:47 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 21:36:04 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ int			raycast(t_game *game, t_cub cub)
 		fill_line(game, &game->camera, x, game->tex[index]);
 		++x;
 	}
-	draw_sprites(game, (double *)zbuffer);
+	draw_sprites(game, &game->spriteval, (double *)zbuffer);
 	return (1);
 }

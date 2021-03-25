@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/25 13:52:37 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 21:36:25 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@
 # include "get_next_line.h"
 # include "mlx.h"
 # include "cub.h"
+
+typedef struct	s_sprite_values {
+	double	spritex;
+	double	spritey;
+	double	invdet;
+	double	transformx;
+	double	transformy;
+	int		spritescreenx;
+	int		drawstartx;
+	int		drawendx;
+	int		drawstarty;
+	int		drawendy;
+}				t_spriteval;
 
 typedef struct	s_sprite {
 	int		height;
@@ -89,6 +102,7 @@ typedef struct	s_game {
 	t_img			sprite_tex;
 	t_img			img;
 	t_sprite		*sprite;
+	t_spriteval		spriteval;
 	t_player		player;
 	t_camera		camera;
 	t_cub			cub;
@@ -114,6 +128,6 @@ int				free_tex(t_game *game);
 int				free_cub(t_cub *cub);
 void			my_mlx_pixel_put(t_img *img, int x, int y, unsigned int color);
 int				init_game(t_game *game, t_cub *cub);
-int				draw_sprites(t_game *game, double *zbuffer);
+int				draw_sprites(t_game *game, t_spriteval *val, double *zbuffer);
 
 #endif

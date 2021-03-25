@@ -1,4 +1,4 @@
-R 1500  1000
+R 1920 1080
 NO 				   ./resources/Texture-nord-256.xpm
 SO  ./resources/Texture-sud-256.xpm
 EA 	./resources/Texture-est-256.xpm
