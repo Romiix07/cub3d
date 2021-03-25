@@ -6,14 +6,59 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:43:02 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 13:43:39 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 22:51:47 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "cub3d.h"
 
-int		get_tex(t_game *g, t_cub *c)
+static void	get_sprite_amt(t_game *game, t_cub *cub)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	game->sprite_amt = 0;
+	while (++y <= cub->y)
+	{
+		x = -1;
+		while (++x <= cub->x)
+			if (cub->map[y][x] == '2')
+				++game->sprite_amt;
+	}
+}
+
+static int	get_sprites(t_game *game, t_cub *cub)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	if (!(game->sprite_tex.img = mlx_xpm_file_to_image(game->mlx, cub->sprite,
+							&game->sprite_tex.width, &game->sprite_tex.height)))
+		return (0);
+	game->sprite_tex.addr = mlx_get_data_addr(game->sprite_tex.img,
+					&game->sprite_tex.bpp,
+					&game->sprite_tex.line_length, &game->sprite_tex.endian);
+	if (!(game->sprite = malloc(sizeof(t_sprite) * game->sprite_amt)))
+		return (0);
+	y = -1;
+	i = -1;
+	while (++y <= cub->y)
+	{
+		x = -1;
+		while (++x <= cub->x)
+			if (cub->map[y][x] == '2')
+			{
+				game->sprite[++i].y = x;
+				game->sprite[i].x = y;
+			}
+	}
+	return (1);
+}
+
+static int	get_tex(t_game *g, t_cub *c)
 {
 	int	i;
 
@@ -38,11 +83,11 @@ int		get_tex(t_game *g, t_cub *c)
 	i = -1;
 	while (++i < 4)
 		g->tex[i].addr = mlx_get_data_addr(g->tex[i].img, &g->tex[i].bpp,
-									&g->tex[i].line_length,	&g->tex[i].endian);
+									&g->tex[i].line_length, &g->tex[i].endian);
 	return (1);
 }
 
-int		init_game(t_game *game, t_cub *cub)
+int			init_game(t_game *game, t_cub *cub)
 {
 	if (!(game->mlx = mlx_init()))
 		return (free_game(game) + free_cub(cub));
@@ -52,6 +97,9 @@ int		init_game(t_game *game, t_cub *cub)
 	if (!(game->img.img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))
 		return (free_game(game) + free_cub(cub));
 	if (!(get_tex(game, cub)))
+		return (free_game(game) + free_cub(cub));
+	get_sprite_amt(game, cub);
+	if (!(get_sprites(game, cub)))
 		return (free_game(game) + free_cub(cub));
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp,
 									  &game->img.line_length,

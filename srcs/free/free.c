@@ -6,14 +6,14 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:11:25 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 14:02:17 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 22:17:55 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "cub3d.h"
 
-int		free_tex(t_game *g)
+static int	free_tex(t_game *g)
 {
 	int	i;
 
@@ -36,10 +36,14 @@ int		free_tex(t_game *g)
 	return (0);
 }
 
-int		free_game(t_game *game)
+int			free_game(t_game *game)
 {
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
+	if (game->sprite_tex.img)
+		mlx_destroy_image(game->mlx, game->sprite_tex.img);
+	if (game->sprite)
+		free(game->sprite);
 	free_tex(game);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
@@ -49,7 +53,7 @@ int		free_game(t_game *game)
 	return (0);
 }
 
-int		free_cub(t_cub *cub)
+int			free_cub(t_cub *cub)
 {
 	if (cub->north)
 		free(cub->north);

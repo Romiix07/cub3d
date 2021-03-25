@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/25 21:36:04 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 22:43:51 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,14 @@ int			raycast(t_game *game, t_cub cub)
 		get_step_sidedist(&game->player, &game->camera);
 		perform_dda(&game->camera, cub);
 		get_perp_drawstartend(game, &game->player, &game->camera);
-		zbuffer[x] = game->camera.perpwalldist;
+		if (game->sprite)
+			zbuffer[x] = game->camera.perpwalldist;
 		index = select_texture(game);
 		get_wallx_texx(&game->player, &game->camera, game->tex[index]);
 		fill_line(game, &game->camera, x, game->tex[index]);
 		++x;
 	}
-	draw_sprites(game, &game->spriteval, (double *)zbuffer);
+	if (game->sprite)
+		draw_sprites(game, &game->spriteval, (double *)zbuffer);
 	return (1);
 }

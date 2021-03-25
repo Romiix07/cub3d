@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:05:59 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/25 21:51:54 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 22:44:54 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "cub3d.h"
 #include "cub3d_defines.h"
 
-static void	write_sprite(t_game *g, t_spriteval *val, double *zbuffer, int i)
+static void	write_sprite(t_game *g, t_spriteval *val, double *zbuf, int i)
 {
 	int				stripe;
-	int				y;
 	int				d;
 	unsigned int	color;
+	int				y;
 
 	stripe = val->drawstartx - 1;
 	while (++stripe < val->drawendx)
@@ -28,7 +28,7 @@ static void	write_sprite(t_game *g, t_spriteval *val, double *zbuffer, int i)
 							val->spritescreenx)) * g->sprite_tex.width /
 							g->sprite[i].width) / 256;
 		y = val->drawstarty - 1;
-		if (val->transformy > 0 && val->transformy < zbuffer[stripe])
+		if (val->transformy > 0 && stripe > 0 && val->transformy < zbuf[stripe])
 			while (++y < val->drawendy)
 			{
 				d = (y) * 256 - g->h * 128 + g->sprite[i].height * 128;
