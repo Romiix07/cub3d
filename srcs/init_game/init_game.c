@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:43:02 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/25 22:51:47 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 23:21:14 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,46 +64,30 @@ static int	get_tex(t_game *g, t_cub *c)
 
 	if (!(g->tex = malloc(sizeof(t_img) * 4)))
 		return (0);
+	i = -1;
+	while (++i < 4)
+		g->tex[i].img = NULL;
 	if (!(g->tex[0].img = mlx_xpm_file_to_image(g->mlx, c->north,
-												&g->tex[0].width,
-												&g->tex[0].height)))
+							&g->tex[0].width, &g->tex[0].height)))
 		return (0);
 	if (!(g->tex[1].img = mlx_xpm_file_to_image(g->mlx, c->south,
-												&g->tex[1].width,
-												&g->tex[1].height)))
+							&g->tex[1].width, &g->tex[1].height)))
 		return (0);
 	if (!(g->tex[2].img = mlx_xpm_file_to_image(g->mlx, c->west,
-												&g->tex[2].width,
-												&g->tex[2].height)))
+							&g->tex[2].width, &g->tex[2].height)))
 		return (0);
 	if (!(g->tex[3].img = mlx_xpm_file_to_image(g->mlx, c->east,
-												&g->tex[3].width,
-												&g->tex[3].height)))
+							&g->tex[3].width, &g->tex[3].height)))
 		return (0);
 	i = -1;
 	while (++i < 4)
 		g->tex[i].addr = mlx_get_data_addr(g->tex[i].img, &g->tex[i].bpp,
-									&g->tex[i].line_length, &g->tex[i].endian);
+							&g->tex[i].line_length, &g->tex[i].endian);
 	return (1);
 }
 
-int			init_game(t_game *game, t_cub *cub)
+static int	get_values(t_game *game, t_cub *cub)
 {
-	if (!(game->mlx = mlx_init()))
-		return (free_game(game) + free_cub(cub));
-	if (!(game->win = mlx_new_window(game->mlx, cub->res_x, cub->res_y, 
-									 "T'es finito, tu n'es qu'une fraude")))
-		return (free_game(game) + free_cub(cub));
-	if (!(game->img.img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))
-		return (free_game(game) + free_cub(cub));
-	if (!(get_tex(game, cub)))
-		return (free_game(game) + free_cub(cub));
-	get_sprite_amt(game, cub);
-	if (!(get_sprites(game, cub)))
-		return (free_game(game) + free_cub(cub));
-	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp,
-									  &game->img.line_length,
-									  &game->img.endian);
 	game->h = cub->res_y;
 	game->w = cub->res_x;
 	game->cub = *cub;
@@ -127,4 +111,31 @@ int			init_game(t_game *game, t_cub *cub)
 	game->player.rot_r = 0;
 	game->player.rot_l = 0;
 	return (1);
+}
+
+int			init_game(t_game *game, t_cub *cub)
+{
+	game->mlx = NULL;
+	game->win = NULL;
+	game->img.img = NULL;
+	game->sprite_tex.img = NULL;
+	game->sprite = NULL;
+	game->tex = NULL;
+	game->sprite_amt = 0;
+	if (!(game->mlx = mlx_init()))
+		return (free_game(game) + free_cub(cub));
+	if (!(game->win = mlx_new_window(game->mlx, cub->res_x, cub->res_y, 
+									 "T'es finito, tu n'es qu'une fraude")))
+		return (free_game(game) + free_cub(cub));
+	if (!(game->img.img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))
+		return (free_game(game) + free_cub(cub));
+	if (!(get_tex(game, cub)))
+		return (free_game(game) + free_cub(cub));
+	get_sprite_amt(game, cub);
+	if (!(get_sprites(game, cub)))
+		return (free_game(game) + free_cub(cub));
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp,
+									  &game->img.line_length,
+									  &game->img.endian);
+	return (get_values(game, cub));
 }

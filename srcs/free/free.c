@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:11:25 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/25 22:17:55 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 23:09:42 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ int			free_game(t_game *game)
 {
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
-	if (game->sprite_tex.img)
-		mlx_destroy_image(game->mlx, game->sprite_tex.img);
-	if (game->sprite)
-		free(game->sprite);
 	free_tex(game);
+	if (game->sprite_amt)
+	{
+		if (game->sprite_tex.img)
+			mlx_destroy_image(game->mlx, game->sprite_tex.img);
+		if (game->sprite)
+			free(game->sprite);
+	}
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);

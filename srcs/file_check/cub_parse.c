@@ -6,7 +6,7 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 12:44:48 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/23 17:19:03 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 22:56:46 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		check_line(char *line, t_cub *cub, int index)
 		return (texture_path_check(line, cub, index + 2, 'E'));
 	else if (line[index] == 'W' && line[index + 1] == 'E')
 		return (texture_path_check(line, cub, index + 2, 'W'));
-	else if (line[index] == 'S' && line[index + 1] == ' ')
+	else if (line[index] == 'S')
 		return (texture_path_check(line, cub, index + 1, 's'));
 	else if (line[index] == 'F')
 		return (floor_check(line, cub, index + 1));
