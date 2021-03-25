@@ -9,6 +9,7 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 				srcs/utils/gnl/get_next_line_utils.c	\
 				srcs/raycast/raycast_1.c				\
 				srcs/raycast/raycast_2.c				\
+				srcs/raycast/sprites.c					\
 				srcs/movements/move.c					\
 				srcs/movements/rot.c					\
 				srcs/init_game/init_game.c				\
@@ -22,7 +23,7 @@ NAME		=	cub3D
 
 LIBS		=	-L/usr/lib -L./mlx -lmlx_Linux -lXext -lX11 -lm -lz
 
-CFLAGS      =   -Wall -Wextra -Werror
+CFLAGS      =   
 
 CC			=	gcc
 

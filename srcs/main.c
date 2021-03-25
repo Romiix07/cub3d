@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 14:03:40 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 14:38:10 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ int			main(int argc, char **argv)
 		return (0);
 	if (!init_game(&game, &cub))
 		return (write(2, "Error\nGame init\n", 17));
+	if (!(game.sprite_tex.img = mlx_xpm_file_to_image(game.mlx, "resources/Texture-nord-256.xpm", &game.sprite_tex.width, &game.sprite_tex.height)))
+		return (write(2, "sprite img\n", 11));
+	game.sprite_tex.addr = mlx_get_data_addr(game.sprite_tex.img, &game.sprite_tex.bpp,
+											 &game.sprite_tex.line_length, &game.sprite_tex.endian);
+	if (!(game.sprite = malloc(sizeof(t_sprite) * 2)))
+		return (0);
+	game.sprite[0].x = 5;
+	game.sprite[0].y = 5;
+	game.sprite[1].x = 4;
+	game.sprite[1].y = 4;
+	game.sprite_amt = 2;
 	main_loop(&game);
 	return (1);
 }

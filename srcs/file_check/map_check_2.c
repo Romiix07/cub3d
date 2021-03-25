@@ -6,7 +6,7 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:11:27 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/15 13:28:52 by cmarien          ###   ########.fr       */
+/*   Updated: 2021/03/25 14:51:12 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int		core_map_check_2(int **map, int i, int j, int t)
 int		core_set(int **map, int j, int i, int t)
 {
 	if (map[j][i] != t && map[j][i] != '1' && map[j][i] != 'N'
-			&& map[j][i] != 'S' && map[j][i] != 'E' && map[j][i] != 'W')
+			&& map[j][i] != 'S' && map[j][i] != 'E' && map[j][i] != 'W' &&
+		map[j][i] != '2')
 		return (0);
 	return (1);
 }

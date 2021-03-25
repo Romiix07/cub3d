@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 14:03:31 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:52:37 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 # include "get_next_line.h"
 # include "mlx.h"
 # include "cub.h"
+
+typedef struct	s_sprite {
+	int		height;
+	int		width;
+	int		x;
+	int		y;
+	double	dist;
+}				t_sprite;
 
 typedef struct	s_img {
 	void	*img;
@@ -74,18 +82,20 @@ typedef struct	s_camera {
 typedef struct	s_game {
 	void			*mlx;
 	void			*win;
+	char			sprite_amt;
 	int				h;
 	int				w;
 	t_img			*tex;
+	t_img			sprite_tex;
 	t_img			img;
+	t_sprite		*sprite;
 	t_player		player;
 	t_camera		camera;
 	t_cub			cub;
 }				t_game;
 
-int				raycast(struct s_game *game, struct s_cub cub);
-int				draw_buffer(struct s_game *game, int x, unsigned int *buffer);
-void			my_mlx_pixel_put(t_img *img, int x, int y, unsigned int color);
+int				raycast(t_game *game, t_cub cub);
+int				draw_buffer(t_game *game, int x, unsigned int *buffer);
 int				exit_all(t_game *game);
 int				free_game(t_game *game);
 int				free_cub(t_cub *cub);
@@ -104,5 +114,6 @@ int				free_tex(t_game *game);
 int				free_cub(t_cub *cub);
 void			my_mlx_pixel_put(t_img *img, int x, int y, unsigned int color);
 int				init_game(t_game *game, t_cub *cub);
+int				draw_sprites(t_game *game, double *zbuffer);
 
 #endif

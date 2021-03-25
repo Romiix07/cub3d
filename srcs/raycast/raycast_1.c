@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 13:59:32 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/25 14:57:47 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	perform_dda(t_camera *camera, t_cub cub)
 			camera->mapy += camera->stepy;
 			camera->side = 1;
 		}
-		if (cub.map[camera->mapx][camera->mapy] != '0')
+		if (cub.map[camera->mapx][camera->mapy] == '1')
 			camera->hit = 1;
 	}
 }
@@ -77,8 +77,9 @@ static void	get_base_values(t_game *game, t_player *player,
 
 int			raycast(t_game *game, t_cub cub)
 {
-	int	x;
-	int	index;
+	int		x;
+	int		index;
+	double	zbuffer[game->w];
 
 	x = 0;
 	while (x < game->w)
@@ -87,10 +88,12 @@ int			raycast(t_game *game, t_cub cub)
 		get_step_sidedist(&game->player, &game->camera);
 		perform_dda(&game->camera, cub);
 		get_perp_drawstartend(game, &game->player, &game->camera);
+		zbuffer[x] = game->camera.perpwalldist;
 		index = select_texture(game);
 		get_wallx_texx(&game->player, &game->camera, game->tex[index]);
 		fill_line(game, &game->camera, x, game->tex[index]);
 		++x;
 	}
+	draw_sprites(game, (double *)zbuffer);
 	return (1);
 }
