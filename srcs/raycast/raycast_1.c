@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 12:43:28 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/29 15:40:39 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:44:03 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,8 @@ int			raycast(t_game *game, t_cub cub)
 	int		x;
 	int		index;
 	double	zbuffer[game->w];
-	void	(*line_fct)(t_game *, t_camera *, int, t_img);
-	int		(*sprite_fct)(t_game *, t_spriteval *, double *);
 
 	x = 0;
-	line_fct = !game->screenshot ? &fill_line: &fill_line_bmp;
 	while (x < game->w)
 	{
 		get_base_values(game, &game->player, &game->camera, x);
@@ -95,11 +92,10 @@ int			raycast(t_game *game, t_cub cub)
 			zbuffer[x] = game->camera.perpwalldist;
 		index = select_texture(game);
 		get_wallx_texx(&game->player, &game->camera, game->tex[index]);
-		(*line_fct)(game, &game->camera, x, game->tex[index]);
+		fill_line(game, &game->camera, x, game->tex[index]);
 		++x;
 	}
-	sprite_fct = !game->screenshot ? &draw_sprites : &draw_sprites_bmp;
 	if (game->sprite)
-		(*sprite_fct)(game, &game->spriteval, (double *)zbuffer);
+		draw_sprites(game, &game->spriteval, (double *)zbuffer);
 	return (1);
 }

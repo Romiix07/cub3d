@@ -13,12 +13,9 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 				srcs/movements/move.c					\
 				srcs/movements/rot.c					\
 				srcs/screenshot/create_file.c			\
-				srcs/screenshot/fill_line_bmp.c			\
-				srcs/screenshot/my_mlx_pixel_put_bmp.c	\
-				srcs/screenshot/sprites_bmp.c			\
 				srcs/init_game/init_game.c				\
 				srcs/events/events.c					\
-				srcs/free/free.c						\
+				srcs/free/free.c
 
 INCLUDES	=	-I./includes/	\
 				-I./mlx/
