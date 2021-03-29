@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 11:00:54 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/29 18:03:13 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:17:05 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ static int	write_header(t_game *game, int fd)
 int			create_bmp(t_game *game)
 {
 	if (!(game->fd = open("screenshot.bmp", O_CREAT | O_APPEND | O_WRONLY |
-						O_TRUNC)))
+						O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP |
+						S_IROTH)))
 	{
 		return (write(2, "Error\nCan't create \"screenshot.bmp\"\n", 36) +
 				exit_all(game));
