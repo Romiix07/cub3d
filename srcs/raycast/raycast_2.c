@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:16:08 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/24 13:59:23 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:51:30 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	fill_line(t_game *game, t_camera *cam, int x, t_img img)
 	{
 		cam->texy = (int)cam->texpos & (img.height - 1);
 		cam->texpos += cam->step;
-		my_mlx_pixel_put(&game->img, x, y, *(int *)(img.addr +
+		my_mlx_pixel_put(&game->img, x, y, *(unsigned int *)(img.addr +
 													(cam->texy *
 													img.line_length +
 													cam->texx *
