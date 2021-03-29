@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/25 22:17:25 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:36:12 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ typedef struct	s_game {
 	void			*mlx;
 	void			*win;
 	char			sprite_amt;
+	char			screenshot;
+	int				fd;
 	int				h;
 	int				w;
 	t_img			*tex;
@@ -128,5 +130,10 @@ int				free_cub(t_cub *cub);
 void			my_mlx_pixel_put(t_img *img, int x, int y, unsigned int color);
 int				init_game(t_game *game, t_cub *cub);
 int				draw_sprites(t_game *game, t_spriteval *val, double *zbuffer);
+int				create_bmp(t_game *game);
+void			fill_line_bmp(t_game *game, t_camera *cam, int x, t_img img);
+void			my_mlx_pixel_put_bmp(int fd, unsigned int color);
+int				draw_sprites_bmp(t_game *game, t_spriteval *val,
+								double *zbuffer);
 
 #endif

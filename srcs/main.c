@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/25 22:44:40 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:32:45 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,24 @@ int			main(int argc, char **argv)
 {
 	t_game	game;
 	t_cub	cub;
+	char	*arg;
 
 	if (argc < 2)
 		return (write(2, "Error\nInvalid arguments\n", 23));
-	if (!cub_parse(argv[1], &cub))
+	game.screenshot = 0;
+	if (argc == 3 && !ft_strcmp(argv[1], "--save"))
+	{
+		arg = argv[2];
+		game.screenshot = 1;
+	}
+	else
+		arg = argv[1];
+	if (!cub_parse(arg, &cub))
 		return (0);
 	if (!init_game(&game, &cub))
 		return (write(2, "Error\nGame init\n", 17));
+	if (game.screenshot)
+		return (create_bmp(&game));
 	main_loop(&game);
 	return (1);
 }

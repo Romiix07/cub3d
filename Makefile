@@ -12,6 +12,10 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 				srcs/raycast/sprites.c					\
 				srcs/movements/move.c					\
 				srcs/movements/rot.c					\
+				srcs/screenshot/create_file.c			\
+				srcs/screenshot/fill_line_bmp.c			\
+				srcs/screenshot/my_mlx_pixel_put_bmp.c	\
+				srcs/screenshot/sprites_bmp.c			\
 				srcs/init_game/init_game.c				\
 				srcs/events/events.c					\
 				srcs/free/free.c						\
@@ -37,6 +41,7 @@ all:			${NAME}
 
 clean:
 				find . -type f \( -name "*~" -o -name "#*#" -o -name "*.o" -o -name "*.gch" \) -delete
+				${RM} screenshot.bmp
 
 fclean:			clean
 				make clean -C mlx

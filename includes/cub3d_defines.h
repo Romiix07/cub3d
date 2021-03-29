@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/23 15:54:37 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:15:21 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,11 @@ enum	e_directions
 # define RGB_BLUE	0x0000FF
 # define RGB_WHITE	0xFFFFFF
 # define RGB_BLACK	0x000000
+
+# define BMP_HEADER_FIELD	0x4D42
+# define BMP_OFFSET			0x36
+# define BMP_HEADER_SIZE	0x28
+# define BMP_COLOR_PLANES	0x1
+# define BMP_BITS_PER_PIXEL	0x18
 
 #endif
