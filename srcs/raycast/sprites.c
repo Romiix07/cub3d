@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:05:59 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/25 22:44:54 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:04:44 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void	write_sprite(t_game *g, t_spriteval *val, double *zbuf, int i)
 
 static void	get_sprite_values(t_game *game, t_spriteval *val, int i)
 {
-	val->spritex = game->sprite[i].x - game->player.posx;
-	val->spritey = game->sprite[i].y - game->player.posy;
+	val->spritex = game->sprite[i].x - game->player.posx + 0.5;
+	val->spritey = game->sprite[i].y - game->player.posy + 0.5;
 	val->invdet = 1.0 / (game->player.planex * game->player.diry -
 						game->player.dirx * game->player.planey);
 	val->transformx = val->invdet * (game->player.diry * val->spritex
