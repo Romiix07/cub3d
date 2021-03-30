@@ -88,11 +88,18 @@ static int	get_tex(t_game *g, t_cub *c)
 
 static int	get_values(t_game *game, t_cub *cub)
 {
-	for (int i = 0; i <= game->cub.y; ++i)
-		for (int j = 0; j <= game->cub.x; ++j)
+	int i;
+	int j;
+
+	i = -1;
+	while (++i <= game->cub.y)
+	{
+		j = -1;
+		while (++j <= game->cub.x)
 			if (game->cub.map[i][j] == 'N' || game->cub.map[i][j] == 'S' ||
 				game->cub.map[i][j] == 'E' || game->cub.map[i][j] == 'W')
 				game->cub.map[i][j] = '0';
+	}
 	game->player.movespeed = 0.15;
 	game->player.rotspeed = 0.07;
 	game->player.move_w = 0;
@@ -117,8 +124,7 @@ int			init_game(t_game *game, t_cub *cub)
 		return (free_game(game) + free_cub(cub));
 	game->cub = *cub;
 	get_game(game);
-	if (!(game->win = mlx_new_window(game->mlx, game->w, game->h, 
-									 "T'es finito, tu n'es qu'une fraude")))
+	if (!(game->win = mlx_new_window(game->mlx, game->w, game->h, "Cub3d")))
 		return (free_game(game) + free_cub(cub));
 	if (!(game->img.img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))
 		return (free_game(game) + free_cub(cub));
@@ -128,7 +134,6 @@ int			init_game(t_game *game, t_cub *cub)
 	if (!(get_sprites(game, cub)))
 		return (free_game(game) + free_cub(cub));
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp,
-									  &game->img.line_length,
-									  &game->img.endian);
+	&game->img.line_length, &game->img.endian);
 	return (get_values(game, cub));
 }

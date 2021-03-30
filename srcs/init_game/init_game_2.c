@@ -21,7 +21,6 @@ void	get_game(t_game *game)
 	game->player.posx = game->cub.position.posx;
 	game->player.posy = game->cub.position.posy;
 	mlx_get_screen_size(game->mlx, &game->w, &game->h);
-	printf("%d/n", game->w);
 	if (game->h >= game->cub.res_y)
 		game->h = game->cub.res_y;
 	if (game->w >= game->cub.res_x)

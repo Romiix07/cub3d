@@ -24,7 +24,7 @@ int		map_verif(char *line, t_cub *cub)
 	return (1);
 }
 
-int		border_map_check(int **map, int i, int j, int x)
+int		border(int **map, int i, int j, int x)
 {
 	if (map[j][i] != 32 && map[j][i] != '1')
 		return (0);
@@ -47,7 +47,7 @@ int		border_map_check(int **map, int i, int j, int x)
 	return (1);
 }
 
-int		core_map_check(int **map, int i, int j, int x)
+int		core(int **map, int i, int j, int x)
 {
 	int t;
 
@@ -86,12 +86,13 @@ int		map_check(t_cub *cub)
 		while (++i <= cub->x)
 			if (cub->map[j][i] != '1')
 			{
-				if (cub->map[j][i] == 'N' || cub->map[j][i] == 'W' || cub->map[j][i] == 'S'
-						|| cub->map[j][i] == 'E')
+				if (cub->map[j][i] == 'N' || cub->map[j][i] == 'W' ||
+				cub->map[j][i] == 'S' || cub->map[j][i] == 'E')
 					pos_edit(cub, j, i);
-				if ((j == 0 || j == cub->y) && (border_map_check(cub->map, i, j, cub->x)) == 0)
+				if ((j == 0 || j == cub->y) && (border(cub->map, i, j, cub->x))
+				== 0)
 					return (error_code('M'));
-				if (j > 0 && j < cub->y && (core_map_check(cub->map, i, j, cub->x)) == 0)
+				if (j > 0 && j < cub->y && (core(cub->map, i, j, cub->x)) == 0)
 					return (error_code('M'));
 			}
 	}
@@ -117,7 +118,7 @@ int		map_edit(t_cub *cub)
 				while (x < cub->x && x > 0)
 					cub->map[y][x++] = ' ';
 			else
-				cub->map[y][x++] = cub->str[index -1];
+				cub->map[y][x++] = cub->str[index - 1];
 		}
 	}
 	--cub->x;

@@ -25,9 +25,9 @@ int		line_check(const char *line)
 
 int		resolution_check(char *line, t_cub *cub, int index)
 {
-	if ((cub->res_x = ft_atoi(line, &index)) < 0)
+	if ((cub->res_x = ft_atoi(line, &index)) <= 0)
 		return (error_code('R'));
-	if ((cub->res_y = ft_atoi(line, &index)) < 0)
+	if ((cub->res_y = ft_atoi(line, &index)) <= 0)
 		return (error_code('R'));
 	while (line[index])
 	{
