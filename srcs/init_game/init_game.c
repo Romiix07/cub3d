@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:43:02 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/30 15:40:28 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:42:56 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int			init_game(t_game *game, t_cub *cub)
 	get_game(game);
 	if (!(game->win = mlx_new_window(game->mlx, game->w, game->h, "Cub3d")))
 		return (free_game(game) + free_cub(cub));
-	if (!(game->img.img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))
+	if (!(game->img.img = mlx_new_image(game->mlx, game->w, game->h)))
 		return (free_game(game) + free_cub(cub));
 	if (!(get_tex(game, cub)))
 		return (free_game(game) + free_cub(cub));
