@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/30 15:47:30 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/30 23:31:03 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ void			get_perp_drawstartend(t_game *game, t_player *player,
 int				select_texture(t_game *game);
 void			get_wallx_texx(t_player *playr, t_camera *cam, t_img img);
 void			fill_line(t_game *game, t_camera *cam, int x, t_img img);
+void			cub_init(t_cub *cub);
+int				free_parse(t_cub *cub);
 int				free_game(t_game *game);
 int				free_cub(t_cub *cub);
 void			my_mlx_pixel_put(t_img *img, int x, int y, unsigned int color);

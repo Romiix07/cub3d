@@ -6,7 +6,7 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 10:47:42 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/15 10:51:55 by cmarien          ###   ########.fr       */
+/*   Updated: 2021/03/30 23:19:56 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_strndup(const char *s1)
 	return (str);
 }
 
-int		ft_atoi(const char *str, int *i)
+int		ft_atoi(const char *str, int *i, int max)
 {
 	int sign;
 	int nb;
@@ -81,7 +81,7 @@ int		ft_atoi(const char *str, int *i)
 		nb += str[*i] - '0';
 		*i += 1;
 	}
-	return (nb * sign);
+	return (nb > 255 && max > 0 ? - (max + 1) : nb * sign);
 }
 
 int		ft_strlen(const char *str)

@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_check.c                                        :+:      :+:    :+:   */
+/*   map_check_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 10:58:26 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/24 13:15:56 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/30 18:59:18 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+#include "cub3d.h"
 
 int		map_verif(char *line, t_cub *cub)
 {
@@ -91,14 +92,15 @@ int		map_check(t_cub *cub)
 					pos_edit(cub, j, i);
 				if ((j == 0 || j == cub->y) && (border(cub->map, i, j, cub->x))
 				== 0)
-					return (error_code('M'));
+					return (error_code('M') + free_cub(cub) + ft_memdel(&cub->str, 0));
 				if (j > 0 && j < cub->y && (core(cub->map, i, j, cub->x)) == 0)
-					return (error_code('M'));
+					return (error_code('M') + free_cub(cub) + ft_memdel(&cub->str, 0));
 			}
 	}
 	if (cub->is_player == 1)
 		return (1);
-	return (cub->is_player == 0 ? error_code('P') : error_code('p'));
+	return (cub->is_player == 0 ? error_code('P') + free_cub(cub)
+	: error_code('p') + free_cub(cub));
 }
 
 int		map_edit(t_cub *cub)

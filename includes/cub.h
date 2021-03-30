@@ -6,7 +6,7 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:27:16 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/18 12:12:05 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/30 22:21:55 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_cub
 	char	*sprite;
 	int		res_x;
 	int		res_y;
+	int		ret;
 	t_pos	position;
 }				t_cub;
 
@@ -54,7 +55,7 @@ int				get_next_line(int fd, char **line);
 char			*ft_strdup(const char *s1);
 int				map_edit(t_cub *cub);
 char			*ft_strjoin(char const *s1, char const *s2);
-int				ft_atoi(const char *str, int *i);
+int				ft_atoi(const char *str, int *i, int max);
 char			*ft_strndup(const char *s1);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				map_create(char *lines, int ***map, int *y, int *x);

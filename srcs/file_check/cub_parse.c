@@ -6,7 +6,7 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 12:44:48 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/30 15:47:04 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/30 22:25:41 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,23 @@ int		check_file_format(char *str)
 int		error_code(char c)
 {
 	if (c == 'R')
-		write(2, "Error\nWrong Resolution", 22);
+		write(2, "Error\nWrong Resolution\n", 23);
 	else if (c == 'T')
-		write(2, "Error\nWrong Texture Path", 30);
+		write(2, "Error\nWrong Texture Path\n", 31);
 	else if (c == 'F')
-		write(2, "Error\nWrong Floor Color Code", 28);
+		write(2, "Error\nWrong Floor Color Code\n", 29);
 	else if (c == 'C')
-		write(2, "Error\nWrong Ceiling Color Code", 31);
+		write(2, "Error\nWrong Ceiling Color Code\n", 32);
 	else if (c == 'c')
-		write(2, "Error\nWrong Line In Configuration File", 39);
+		write(2, "Error\nWrong Line In Configuration File\n", 40);
 	else if (c == 'M')
-		write(2, "Error\nWrong Map Configuration", 29);
+		write(2, "Error\nWrong Map Configuration\n", 30);
 	else if (c == 'A')
-		write(2, "Error\nCrash While Allocating Memory", 35);
+		write(2, "Error\nCrash While Allocating Memory\n", 36);
 	else if (c == 'P')
-		write(2, "Error\nNo Player In Map", 22);
+		write(2, "Error\nNo Player In Map\n", 23);
 	else if (c == 'p')
-		write(2, "Error\nToo Many Player In Map", 28);
+		write(2, "Error\nToo Many Player In Map\n", 29);
 	return (0);
 }
 
@@ -96,25 +96,26 @@ int		cub_parse(char *str, t_cub *cub)
 	int		fd;
 	char	*line;
 
-	cub->start = 0;
+	cub_init(cub);
 	if ((fd = check_file_format(str)) == -1)
 		return (0);
-	while ((cub->error = get_next_line(fd, &line)) >= 0)
+	while ((cub->ret = get_next_line(fd, &line)) >= 0)
 	{
+		if(cub->ret == 0)
+			break ;
 		if (cub->start == 1)
 		{
-			if (line_check(line) == 0)
-				break ;
 			tmp = ft_strjoin(cub->str, line);
 			free(cub->str);
 			cub->str = tmp;
 		}
 		else if (check_line(line, cub, 0) == 0)
-			return (ft_memdel(&line, fd));
+			cub->error = -1;
 		ft_memdel(&line, 0);
-		if (cub->error == 0)
-			break ;
 	}
-	return (cub->error == -1 ? ft_memdel(&line, 0) :
-			ft_map(cub) + close(fd) * 0);
+//	if (color_check(cub) != 1)
+//		cub->error = -1;
+	cub->ret = cub->error;
+	return (cub->ret == -1 ? ft_memdel(&line, fd) + free_parse(cub):
+			ft_map(cub) + ft_memdel(&line, fd));
 }

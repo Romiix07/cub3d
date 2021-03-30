@@ -6,7 +6,7 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 10:53:30 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/22 15:03:48 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/30 23:32:44 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		line_check(const char *line)
 
 int		resolution_check(char *line, t_cub *cub, int index)
 {
-	if ((cub->res_x = ft_atoi(line, &index)) <= 0)
+	if ((cub->res_x = ft_atoi(line, &index, 0)) <= 0)
 		return (error_code('R'));
-	if ((cub->res_y = ft_atoi(line, &index)) <= 0)
+	if ((cub->res_y = ft_atoi(line, &index, 0)) <= 0)
 		return (error_code('R'));
 	while (line[index])
 	{
@@ -68,19 +68,20 @@ int		texture_path_check(char *line, t_cub *cub, int index, char orientation)
 
 int		floor_check(char *line, t_cub *cub, int index)
 {
-	if ((cub->floor_color = (ft_atoi(line, &index) * 65536)) < 0)
+	if ((cub->floor_color = ft_atoi(line, &index, 255) * 65536) < 0)
 		return (error_code('F'));
 	while (line[index] == ' ' || line[index] == '\t')
 		index++;
 	if (line[index] == ',')
 		index++;
-	if ((cub->floor_color += (ft_atoi(line, &index) * 256)) < 0)
+	if ((cub->floor_color += ft_atoi(line, &index, (cub->floor_color / 256))
+	* 256) < 0)
 		return (error_code('F'));
 	while (line[index] == ' ' || line[index] == '\t')
 		index++;
 	if (line[index] == ',')
 		index++;
-	if ((cub->floor_color += ft_atoi(line, &index)) < 0)
+	if ((cub->floor_color += ft_atoi(line, &index, cub->floor_color)) < 0)
 		return (error_code('F'));
 	index--;
 	while (line[++index])
@@ -91,19 +92,20 @@ int		floor_check(char *line, t_cub *cub, int index)
 
 int		ceiling_check(char *line, t_cub *cub, int index)
 {
-	if ((cub->ceiling_color = (ft_atoi(line, &index) * 65536)) < 0)
+	if ((cub->ceiling_color = ft_atoi(line, &index, 255) * 65536) < 0)
 		return (error_code('C'));
 	while (line[index] == ' ' || line[index] == '\t')
 		index++;
 	if (line[index] == ',')
 		index++;
-	if ((cub->ceiling_color += (ft_atoi(line, &index) * 256)) < 0)
+	if ((cub->ceiling_color += ft_atoi(line, &index, (cub->ceiling_color / 256))
+	* 256) < 0)
 		return (error_code('C'));
 	while (line[index] == ' ' || line[index] == '\t')
 		index++;
 	if (line[index] == ',')
 		index++;
-	if ((cub->ceiling_color += ft_atoi(line, &index)) < 0)
+	if ((cub->ceiling_color += ft_atoi(line, &index, cub->ceiling_color)) < 0)
 		return (error_code('C'));
 	index--;
 	while (line[++index])

@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:11:25 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/25 23:09:42 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/30 20:35:32 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,22 @@ int			free_cub(t_cub *cub)
 			free(cub->map[cub->y + 1]);
 		free(cub->map);
 	}
+	return (0);
+}
+
+int			free_parse(t_cub *cub)
+{
+	if (cub->north)
+		ft_memdel(&cub->north, 0);
+	if (cub->south)
+		ft_memdel(&cub->south, 0);
+	if (cub->east)
+		ft_memdel(&cub->east, 0);
+	if (cub->west)
+		ft_memdel(&cub->west, 0);
+	if (cub->sprite)
+		ft_memdel(&cub->sprite, 0);
+	if (cub->str)
+		ft_memdel(&cub->str, 0);
 	return (0);
 }
