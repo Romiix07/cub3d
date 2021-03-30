@@ -132,5 +132,6 @@ void			my_mlx_pixel_put(t_img *img, int x, int y, unsigned int color);
 int				init_game(t_game *game, t_cub *cub);
 int				draw_sprites(t_game *game, t_spriteval *val, double *zbuffer);
 int				create_bmp(t_game *game);
+int				get_shadow(int color, t_game *game, int x, int y);
 
 #endif

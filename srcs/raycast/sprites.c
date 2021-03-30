@@ -25,8 +25,7 @@ static void	write_sprite(t_game *g, t_spriteval *val, double *zbuf, int i)
 	while (++stripe < val->drawendx)
 	{
 		g->camera.texx = (int)(256 * (stripe - (-g->sprite[i].width / 2 +
-							val->spritescreenx)) * g->sprite_tex.width /
-							g->sprite[i].width) / 256;
+		val->spritescreenx)) * g->sprite_tex.width / g->sprite[i].width) / 256;
 		y = val->drawstarty - 1;
 		if (val->transformy > 0 && stripe > 0 && val->transformy < zbuf[stripe])
 			while (++y < val->drawendy)
@@ -38,7 +37,8 @@ static void	write_sprite(t_game *g, t_spriteval *val, double *zbuf, int i)
 							g->camera.texy * g->sprite_tex.line_length +
 							g->camera.texx * (g->sprite_tex.bpp / 8));
 				if ((color & 0x00FFFFFF) != 0)
-					my_mlx_pixel_put(&g->img, stripe, y, color);
+					my_mlx_pixel_put(&g->img, stripe, y, get_shadow(color, g,
+					g->sprite[i].x, g->sprite[i].y));
 			}
 	}
 }

@@ -13,6 +13,26 @@
 #include "cub3d.h"
 #include "cub3d_defines.h"
 
+int		get_shadow(int color, t_game *game, int x, int y)
+{
+	double dist;
+
+	if (game->camera.mapx > game->player.posx)
+		dist = x - game->player.posx;
+	else
+		dist = game->player.posx - x;
+	if (game->camera.mapy > game->player.posy)
+		dist += y - game->player.posy;
+	else
+		dist += game->player.posy - y;
+	dist /= 5;
+	if (dist < 1.0)
+		return (color);
+	return (((int)(((0xFF0000 & color) >> 16) / dist) << 16) +
+	((int)(((0x00FF00 & color) >> 8) / dist) << 8) +
+	((int)((0x0000FF & color) / dist)));
+}
+
 void	fill_line(t_game *game, t_camera *cam, int x, t_img img)
 {
 	int	y;
@@ -27,12 +47,9 @@ void	fill_line(t_game *game, t_camera *cam, int x, t_img img)
 	{
 		cam->texy = (int)cam->texpos & (img.height - 1);
 		cam->texpos += cam->step;
-		my_mlx_pixel_put(&game->img, x, y, *(unsigned int *)(img.addr +
-													(cam->texy *
-													img.line_length +
-													cam->texx *
-													(img.bpp /
-													8))));
+		my_mlx_pixel_put(&game->img, x, y, get_shadow(*(unsigned int *)
+		(img.addr + (cam->texy * img.line_length + cam->texx *
+		(img.bpp / 8))), game, cam->mapx, cam->mapy));
 		++y;
 	}
 	while ((++y - 1) < game->h)
