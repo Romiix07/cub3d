@@ -14,6 +14,7 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 				srcs/movements/rot.c					\
 				srcs/screenshot/create_file.c			\
 				srcs/init_game/init_game.c				\
+				srcs/init_game/init_game_2.c				\
 				srcs/events/events.c					\
 				srcs/free/free.c
 

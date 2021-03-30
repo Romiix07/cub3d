@@ -73,32 +73,31 @@ int		core_map_check(int **map, int i, int j, int x)
 	return (1);
 }
 
-int		map_check(int **map, int x, int y)
+int		map_check(t_cub *cub)
 {
 	int	i;
 	int	j;
-	int is_player;
 
 	j = -1;
-	is_player = 0;
-	while (++j <= y)
+	cub->is_player = 0;
+	while (++j <= cub->y)
 	{
 		i = -1;
-		while (++i <= x)
-			if (map[j][i] != '1')
+		while (++i <= cub->x)
+			if (cub->map[j][i] != '1')
 			{
-				if (map[j][i] == 'N' || map[j][i] == 'W' || map[j][i] == 'S'
-						|| map[j][i] == 'E')
-					is_player += 1;
-				if ((j == 0 || j == y) && (border_map_check(map, i, j, x)) == 0)
+				if (cub->map[j][i] == 'N' || cub->map[j][i] == 'W' || cub->map[j][i] == 'S'
+						|| cub->map[j][i] == 'E')
+					pos_edit(cub, j, i);
+				if ((j == 0 || j == cub->y) && (border_map_check(cub->map, i, j, cub->x)) == 0)
 					return (error_code('M'));
-				if (j > 0 && j < y && (core_map_check(map, i, j, x)) == 0)
+				if (j > 0 && j < cub->y && (core_map_check(cub->map, i, j, cub->x)) == 0)
 					return (error_code('M'));
 			}
 	}
-	if (is_player == 1)
+	if (cub->is_player == 1)
 		return (1);
-	return (is_player == 0 ? error_code('P') : error_code('p'));
+	return (cub->is_player == 0 ? error_code('P') : error_code('p'));
 }
 
 int		map_edit(t_cub *cub)
@@ -116,16 +115,12 @@ int		map_edit(t_cub *cub)
 		{
 			if (cub->str[index++] == '\n')
 				while (x < cub->x && x > 0)
-				{
-					cub->map[y][x] = ' ';
-					x++;
-				}
+					cub->map[y][x++] = ' ';
 			else
-			{
-				cub->map[y][x] = cub->str[index - 1];
-				x++;
-			}
+				cub->map[y][x++] = cub->str[index -1];
 		}
 	}
-	return (map_check(cub->map, --cub->x, --cub->y));
+	--cub->x;
+	--cub->y;
+	return (map_check(cub));
 }

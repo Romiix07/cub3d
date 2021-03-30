@@ -117,6 +117,7 @@ int				free_game(t_game *game);
 int				free_cub(t_cub *cub);
 void			rot_r(t_player *player);
 void			rot_l(t_player *player);
+void			get_game(t_game *game);
 int				move(t_player *player, t_cub cub);
 int				get_key_released(int keycode, t_game *game);
 int				get_key_pressed(int keycode, t_game *game);

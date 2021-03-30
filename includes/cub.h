@@ -18,10 +18,21 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+typedef struct	s_pos
+{
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+	double	posx;
+	double	posy;
+}				t_pos;
+
 typedef struct	s_cub
 {
 	int		start;
 	char	*str;
+	int		is_player;
 	int		**map;
 	int		error;
 	int		x;
@@ -35,6 +46,7 @@ typedef struct	s_cub
 	char	*sprite;
 	int		res_x;
 	int		res_y;
+	t_pos	position;
 }				t_cub;
 
 int				ft_strlen(const char *str);
@@ -58,6 +70,7 @@ int				ceiling_check(char *line, t_cub *cub, int index);
 int				map_verif(char *line, t_cub *cub);
 int				error_code(char c);
 int				cub_parse(char *str, t_cub *cub);
+int				pos_edit(t_cub *cub, int j, int i);
 int				ft_strcmp(const char *s1, const char *s2);
 
 #endif

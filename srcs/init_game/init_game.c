@@ -88,22 +88,13 @@ static int	get_tex(t_game *g, t_cub *c)
 
 static int	get_values(t_game *game, t_cub *cub)
 {
-	game->h = cub->res_y;
-	game->w = cub->res_x;
-	game->cub = *cub;
 	for (int i = 0; i <= game->cub.y; ++i)
 		for (int j = 0; j <= game->cub.x; ++j)
 			if (game->cub.map[i][j] == 'N' || game->cub.map[i][j] == 'S' ||
 				game->cub.map[i][j] == 'E' || game->cub.map[i][j] == 'W')
 				game->cub.map[i][j] = '0';
-	game->player.posx = 4.0;
-	game->player.posy = 4.0;
-	game->player.dirx = 0.0;
-	game->player.diry = 1.0;
-	game->player.planex = 0.60;
-	game->player.planey = 0.00;
-	game->player.movespeed = 0.12;
-	game->player.rotspeed = 0.05;
+	game->player.movespeed = 0.15;
+	game->player.rotspeed = 0.07;
 	game->player.move_w = 0;
 	game->player.move_a = 0;
 	game->player.move_s = 0;
@@ -124,7 +115,9 @@ int			init_game(t_game *game, t_cub *cub)
 	game->sprite_amt = 0;
 	if (!(game->mlx = mlx_init()))
 		return (free_game(game) + free_cub(cub));
-	if (!(game->win = mlx_new_window(game->mlx, cub->res_x, cub->res_y, 
+	game->cub = *cub;
+	get_game(game);
+	if (!(game->win = mlx_new_window(game->mlx, game->w, game->h, 
 									 "T'es finito, tu n'es qu'une fraude")))
 		return (free_game(game) + free_cub(cub));
 	if (!(game->img.img = mlx_new_image(game->mlx, cub->res_x, cub->res_y)))

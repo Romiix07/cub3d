@@ -12,6 +12,35 @@
 
 #include "cub.h"
 
+int		pos_edit(t_cub *cub, int j, int i)
+{
+	cub->position.dirx = 0;
+	cub->position.diry = 0;
+	cub->position.planex = 0;
+	cub->position.planey = 0;
+	cub->position.posx = j + 0.5;
+	cub->position.posy = i + 0.5;
+	cub->is_player += 1;
+	if (cub->map[j][i] == 'N')
+		cub->position.dirx = -1.0;
+	if (cub->map[j][i] == 'S')
+		cub->position.dirx = 1.0;
+	if (cub->map[j][i] == 'E')
+		cub->position.diry = 1.0;
+	if (cub->map[j][i] == 'W')
+		cub->position.diry = -1.0;
+	if (cub->position.dirx == -1.0)
+		cub->position.planey = 0.60;
+	else if (cub->position.dirx == 1.0)
+		cub->position.planey = -0.60;
+	if (cub->position.diry == 1.0)
+		cub->position.planex = 0.60;
+	else if (cub->position.diry == -1.0)
+		cub->position.planex = -0.60;
+	cub->map[j][i] = '0';
+	return (1);
+}
+
 int		map_create(char *lines, int ***map, int *y, int *x)
 {
 	int index;
