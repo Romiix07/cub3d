@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:43:02 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/30 17:42:56 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:48:09 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	get_sprite_amt(t_game *game, t_cub *cub)
 	int	x;
 
 	y = -1;
-	game->sprite_amt = 0;
 	while (++y <= cub->y)
 	{
 		x = -1;
@@ -119,6 +118,7 @@ int			init_game(t_game *game, t_cub *cub)
 	game->sprite_tex.img = NULL;
 	game->sprite = NULL;
 	game->tex = NULL;
+	game->sprite_amt = 0;
 	if (!(game->mlx = mlx_init()))
 		return (free_game(game) + free_cub(cub));
 	game->cub = *cub;
