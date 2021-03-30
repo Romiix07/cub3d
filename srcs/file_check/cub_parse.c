@@ -6,11 +6,12 @@
 /*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 12:44:48 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/29 19:43:16 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:47:04 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+#include "cub3d.h"
 
 int		check_file_format(char *str)
 {
@@ -109,11 +110,11 @@ int		cub_parse(char *str, t_cub *cub)
 			cub->str = tmp;
 		}
 		else if (check_line(line, cub, 0) == 0)
-			return (close(fd) * 0);
-		free(line);
+			return (ft_memdel(&line, fd));
+		ft_memdel(&line, 0);
 		if (cub->error == 0)
 			break ;
 	}
-	free(line);
-	return (cub->error == -1 ? close(fd) * 0 : ft_map(cub) + close(fd) * 0);
+	return (cub->error == -1 ? ft_memdel(&line, 0) :
+			ft_map(cub) + close(fd) * 0);
 }

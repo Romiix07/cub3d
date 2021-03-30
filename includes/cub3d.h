@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/29 16:44:43 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:47:30 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,6 @@ int				init_game(t_game *game, t_cub *cub);
 int				draw_sprites(t_game *game, t_spriteval *val, double *zbuffer);
 int				create_bmp(t_game *game);
 int				get_shadow(int color, t_game *game, int x, int y);
+int				ft_memdel(char **s, int fd);
 
 #endif

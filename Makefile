@@ -3,6 +3,7 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 				srcs/file_check/cub_parse.c				\
 				srcs/file_check/parse_checks.c			\
 				srcs/file_check/parse_utils.c			\
+				srcs/file_check/memdel.c				\
 				srcs/utils/ft_strcmp.c					\
 				srcs/utils/my_mlx_pixel_put.c			\
 				srcs/utils/gnl/get_next_line.c			\
@@ -33,7 +34,7 @@ RM			=	rm -f
 
 ${NAME}:
 				make -C mlx
-				${CC} -o ${NAME} srcs/main.c ${SRCS} ${CFLAGS} -D BUFFER_SIZE=30 ${INCLUDES} ${LIBS}
+				${CC} -o ${NAME} srcs/main.c ${SRCS} ${CFLAGS} -D BUFFER_SIZE=10 ${INCLUDES} ${LIBS}
 
 all:			${NAME}
 
