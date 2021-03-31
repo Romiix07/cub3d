@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 00:49:25 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/31 15:52:14 by cmarien          ###   ########.fr       */
+/*   Updated: 2021/03/31 16:37:55 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ int		error_code(char c)
 	if (c == 'R')
 		write(2, "Error\nWrong Resolution\n", 23);
 	else if (c == 'T')
-		write(2, "Error\nWrong Texture Path\n", 31);
+		write(2, "Error\nWrong Texture Path\n", 25);
 	else if (c == 'F')
 		write(2, "Error\nWrong Floor Color Code\n", 29);
 	else if (c == 'C')
-		write(2, "Error\nWrong Ceiling Color Code\n", 32);
+		write(2, "Error\nWrong Ceiling Color Code\n", 31);
 	else if (c == 'c')
-		write(2, "Error\nWrong Line In Configuration File\n", 40);
+		write(2, "Error\nWrong Line In Configuration File\n", 39);
 	else if (c == 'M')
 		write(2, "Error\nWrong Map Configuration\n", 30);
 	else if (c == 'A')
