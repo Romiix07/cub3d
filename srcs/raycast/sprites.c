@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 11:05:59 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/29 19:04:44 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/31 13:55:00 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ static void	write_sprite(t_game *g, t_spriteval *val, double *zbuf, int i)
 				d = (y) * 256 - g->h * 128 + g->sprite[i].height * 128;
 				g->camera.texy = ((d * g->sprite_tex.height) /
 								g->sprite[i].height) / 256;
-				color = *(unsigned int *)(g->sprite_tex.addr +
-							g->camera.texy * g->sprite_tex.line_length +
-							g->camera.texx * (g->sprite_tex.bpp / 8));
-				if ((color & 0x00FFFFFF) != 0)
+				if (get_put_color(g, &color) && (color & 0x00FFFFFF) != 0)
 					my_mlx_pixel_put(&g->img, stripe, y, get_shadow(color, g,
-					g->sprite[i].x, g->sprite[i].y));
+								g->sprite[i].x, g->sprite[i].y));
 			}
 	}
 }

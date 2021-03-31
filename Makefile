@@ -12,6 +12,7 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 				srcs/raycast/raycast_1.c				\
 				srcs/raycast/raycast_2.c				\
 				srcs/raycast/sprites.c					\
+				srcs/raycast/sprites_color.c			\
 				srcs/movements/move.c					\
 				srcs/movements/rot.c					\
 				srcs/screenshot/create_file.c			\

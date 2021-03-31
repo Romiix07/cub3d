@@ -1,18 +1,19 @@
- R 1500 1000
-NO ./resources/Texture-nord-256.xpm
-SO ./resources/Texture-sud-256.xpm
-EA ./resources/Texture-est-256.xpm
-WE ./resources/Texture-ouest-256.xpm
+ R 1920 1080
+NO ./textures/redbrick.xpm
+SO ./textures/greystone.xpm
+EA ./textures/bluestone.xpm
+WE ./textures/purplestone.xpm
 
-S ./resources/sprite_1.xpm
+S ./textures/barrel.xpm
 F 180,180,180
 C 96,200,240
 
 1111111111111111
-1000000000000021
+1000010001000021
 1000000000000201
-100E000000000001
+100E001110000001
+1000000100000021
+1000000100000021
 1000000000000021
-1000000000000021
-1000000000000021
+1000100010010021
 1111111111111111

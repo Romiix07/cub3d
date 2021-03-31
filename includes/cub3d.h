@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/31 00:32:25 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/31 13:46:19 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,6 @@ int				ft_memdel(char **s, int fd);
 int				map_check_loop(t_cub *cub, int i, int j);
 int				core(int **map, int i, int j, int x);
 int				border(int **map, int i, int j, int x);
+int				get_put_color(t_game *g, unsigned int *color);
 
 #endif
