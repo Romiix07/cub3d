@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/02 12:44:48 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/30 22:25:41 by cmarien          ###   ########.fr       */
+/*   Created: 2021/03/31 00:49:25 by rmouduri          #+#    #+#             */
+/*   Updated: 2021/03/31 02:04:58 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,7 @@ int		cub_parse(char *str, t_cub *cub)
 		return (0);
 	while ((cub->ret = get_next_line(fd, &line)) >= 0)
 	{
-		if(cub->ret == 0)
-			break ;
-		if (cub->start == 1)
+		if (cub->start == 1 && (ft_strlen(line) || cub->ret))
 		{
 			tmp = ft_strjoin(cub->str, line);
 			free(cub->str);
@@ -112,10 +110,10 @@ int		cub_parse(char *str, t_cub *cub)
 		else if (check_line(line, cub, 0) == 0)
 			cub->error = -1;
 		ft_memdel(&line, 0);
+		if (cub->ret == 0)
+			break ;
 	}
-//	if (color_check(cub) != 1)
-//		cub->error = -1;
 	cub->ret = cub->error;
-	return (cub->ret == -1 ? ft_memdel(&line, fd) + free_parse(cub):
+	return (cub->ret == -1 ? ft_memdel(&line, fd) + free_parse(cub) :
 			ft_map(cub) + ft_memdel(&line, fd));
 }

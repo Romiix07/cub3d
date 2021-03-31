@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 13:43:02 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/30 17:48:09 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/31 00:33:42 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	get_tex(t_game *g, t_cub *c)
 	return (1);
 }
 
-static int	get_values(t_game *game, t_cub *cub)
+static int	get_values(t_game *game)
 {
 	int i;
 	int j;
@@ -135,5 +135,5 @@ int			init_game(t_game *game, t_cub *cub)
 			return (free_game(game) + free_cub(cub));
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp,
 	&game->img.line_length, &game->img.endian);
-	return (get_values(game, cub));
+	return (get_values(game));
 }

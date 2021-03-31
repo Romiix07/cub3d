@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/15 11:11:27 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/25 14:51:12 by rmouduri         ###   ########.fr       */
+/*   Created: 2021/03/31 00:49:41 by rmouduri          #+#    #+#             */
+/*   Updated: 2021/03/31 02:05:42 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ int		map_create(char *lines, int ***map, int *y, int *x)
 	index = -1;
 	*y = 0;
 	while (lines[++index])
+	{
 		if (lines[index] == '\n')
 			*y += 1;
+	}
 	if (!(*map = malloc(sizeof(int *) * *y)))
 		return (error_code('A'));
 	index = -1;

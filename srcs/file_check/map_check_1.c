@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarien <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/15 10:58:26 by cmarien           #+#    #+#             */
-/*   Updated: 2021/03/30 18:59:18 by cmarien          ###   ########.fr       */
+/*   Created: 2021/03/31 00:49:04 by rmouduri          #+#    #+#             */
+/*   Updated: 2021/03/31 01:30:00 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,8 @@ int		map_check(t_cub *cub)
 	{
 		i = -1;
 		while (++i <= cub->x)
-			if (cub->map[j][i] != '1')
-			{
-				if (cub->map[j][i] == 'N' || cub->map[j][i] == 'W' ||
-				cub->map[j][i] == 'S' || cub->map[j][i] == 'E')
-					pos_edit(cub, j, i);
-				if ((j == 0 || j == cub->y) && (border(cub->map, i, j, cub->x))
-				== 0)
-					return (error_code('M') + free_cub(cub) + ft_memdel(&cub->str, 0));
-				if (j > 0 && j < cub->y && (core(cub->map, i, j, cub->x)) == 0)
-					return (error_code('M') + free_cub(cub) + ft_memdel(&cub->str, 0));
-			}
+			if (!(map_check_loop(cub, i, j)))
+				return (0);
 	}
 	if (cub->is_player == 1)
 		return (1);

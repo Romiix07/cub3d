@@ -4,6 +4,7 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 				srcs/file_check/parse_checks.c			\
 				srcs/file_check/parse_utils.c			\
 				srcs/file_check/memdel.c				\
+				srcs/file_check/map_check_loop.c		\
 				srcs/utils/ft_strcmp.c					\
 				srcs/utils/my_mlx_pixel_put.c			\
 				srcs/utils/gnl/get_next_line.c			\
@@ -15,7 +16,7 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 				srcs/movements/rot.c					\
 				srcs/screenshot/create_file.c			\
 				srcs/init_game/init_game.c				\
-				srcs/init_game/init_game_2.c				\
+				srcs/init_game/init_game_2.c			\
 				srcs/events/events.c					\
 				srcs/free/free.c
 
@@ -26,7 +27,7 @@ NAME		=	cub3D
 
 LIBS		=	-L/usr/lib -L./mlx -lmlx_Linux -lXext -lX11 -lm -lz
 
-CFLAGS      =   
+CFLAGS      =   -Wall -Werror -Wextra
 
 CC			=	gcc
 
