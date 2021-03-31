@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/30 15:27:49 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/31 02:12:55 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	display(t_game *game)
 
 static int	main_loop(t_game *game)
 {
+	mlx_hook(game->win, 33, 1L << 17, &exit_all, game);
 	mlx_hook(game->win, 2, 1L << 0, &get_key_pressed, game);
 	mlx_loop_hook(game->mlx, &display, game);
 	mlx_hook(game->win, 3, 1L << 1, &get_key_released, game);
