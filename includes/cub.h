@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 02:15:39 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/31 15:16:21 by cmarien          ###   ########.fr       */
+/*   Updated: 2021/03/31 16:11:21 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int				map_verif(char *line, t_cub *cub);
 int				error_code(char c);
 int				cub_parse(char *str, t_cub *cub);
 int				pos_edit(t_cub *cub, int j, int i);
-int				last_check(t_cub * cub);
+int				last_check(t_cub *cub);
 int				ft_strcmp(const char *s1, const char *s2);
 
 #endif
