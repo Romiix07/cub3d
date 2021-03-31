@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 11:41:15 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/31 00:51:53 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/31 16:03:12 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,16 @@ void	get_game(t_game *game)
 void	cub_init(t_cub *cub)
 {
 	cub->start = 0;
+	cub->str = NULL;
 	cub->north = NULL;
 	cub->south = NULL;
 	cub->east = NULL;
 	cub->west = NULL;
 	cub->sprite = NULL;
 	cub->error = 0;
+	cub->floor_color = -1;
+	cub->ceiling_color = -1;
+	cub->res_y = -1;
+	cub->res_x = -1;
+	cub->map = NULL;
 }

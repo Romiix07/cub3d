@@ -1,12 +1,14 @@
- R 1920 1080
 NO ./textures/redbrick.xpm
-SO ./textures/greystone.xpm
+C 96,200,240
+S ./textures/barrel.xpm
 EA ./textures/bluestone.xpm
+R 1920 1080
+SO ./textures/redbrick.xpm
 WE ./textures/purplestone.xpm
 
-S ./textures/barrel.xpm
+
+
 F 180,180,180
-C 96,200,240
 
 1111111111111111
 1000010001000021

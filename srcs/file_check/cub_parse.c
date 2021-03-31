@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 00:49:25 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/31 02:04:58 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:52:14 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int		cub_parse(char *str, t_cub *cub)
 		if (cub->ret == 0)
 			break ;
 	}
+	last_check(cub) == 0 ? cub->error = -1 : 0;
 	cub->ret = cub->error;
 	return (cub->ret == -1 ? ft_memdel(&line, fd) + free_parse(cub) :
 			ft_map(cub) + ft_memdel(&line, fd));

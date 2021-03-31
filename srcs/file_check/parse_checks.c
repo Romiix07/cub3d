@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 00:49:55 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/31 01:14:28 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:30:39 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,16 @@ int		texture_path_check(char *line, t_cub *cub, int index, char orientation)
 		index++;
 	if (line[index] == '\0')
 		return (error_code('T'));
-	if (orientation == 'N')
+	if (orientation == 'N' && cub->north == NULL)
 		cub->north = ft_substr(line, index, ft_strlen(line) - (index));
-	else if (orientation == 'S')
+	else if (orientation == 'S' && cub->south == NULL)
 		cub->south = ft_substr(line, index, ft_strlen(line) - (index));
-	else if (orientation == 'E')
+	else if (orientation == 'E' && cub->east == NULL)
 		cub->east = ft_substr(line, index, ft_strlen(line) - (index));
-	else if (orientation == 'W')
+	else if (orientation == 'W' && cub->west == NULL)
 		cub->west = ft_substr(line, index, ft_strlen(line) - (index));
-	else if (orientation == 's')
+	else if (orientation == 's' && cub->sprite == NULL)
 		cub->sprite = ft_substr(line, index, ft_strlen(line) - (index));
-	else
-		return (error_code('T'));
 	while (line[index + 1])
 	{
 		if ((line[index] == ' ' || line[index] == '\t') && (line[index + 1] !=
