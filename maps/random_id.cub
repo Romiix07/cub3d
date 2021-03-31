@@ -1,13 +1,11 @@
-EA ./textures/stone.xpm
-R	1000	1000
+EA ./textures/redbrick.xpm
+R	1920	1080
 C 0,128,128
 S ./textures/barrel.xpm
 F 255,0,0
-NO ./textures/mossy.xpm
-SO ./textures/redbrick.xpm
-WE ./textures/wood.xpm
-
-
+NO ./textures/bluestone.xpm
+SO ./textures/greystone.xpm
+WE ./textures/purplestone.xpm
 
 1111111111111111111111111111111111111111111
 1000000000000000000000000000000002000002001

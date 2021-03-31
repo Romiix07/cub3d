@@ -1,9 +1,11 @@
 R	1	1
-NO ./textures/mossy.xpm
-SO ./textures/redbrick.xpm
-EA ./textures/stone.xpm
-WE ./textures/wood.xpm
+NO ./textures/bluestone.xpm
+SO ./textures/greystone.xpm
+WE ./textures/purplestone.xpm
+WE ./textures/purplestone.xpm
+EA ./textures/redbrick.xpm
 S ./textures/barrel.xpm
+
 
 F 255,0,255
 C 0,128,128
