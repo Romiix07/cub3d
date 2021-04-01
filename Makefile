@@ -35,7 +35,7 @@ CC			=	gcc
 
 RM			=	rm -f
 
-${NAME}:
+${NAME}:		clean
 				make -C mlx
 				${CC} -o ${NAME} srcs/main.c ${SRCS} ${CFLAGS} -D BUFFER_SIZE=10 ${INCLUDES} ${LIBS}
 
