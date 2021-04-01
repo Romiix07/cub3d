@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 11:13:40 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/04/01 18:32:29 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/04/01 18:51:02 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			main(int argc, char **argv)
 	t_game	game;
 	t_cub	cub;
 
-	if (argc < 2 || (argc > 2 && ft_strcmp(argv[2], "--save") != 0))
+	if (argc < 2 || argc > 3 || (argc > 2 && ft_strcmp(argv[2], "--save") != 0))
 		return (write(2, "Error\nWrong arguments\n", 22));
 	game.screenshot = 0;
 	if (argc == 3 && ft_strcmp(argv[2], "--save") == 0)
