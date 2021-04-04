@@ -7,6 +7,7 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 				srcs/file_check/map_check_loop.c		\
 				srcs/file_check/last_check.c			\
 				srcs/utils/ft_strcmp.c					\
+				srcs/utils/ft_strncmp.c					\
 				srcs/utils/my_mlx_pixel_put.c			\
 				srcs/utils/gnl/get_next_line.c			\
 				srcs/utils/gnl/get_next_line_utils.c	\

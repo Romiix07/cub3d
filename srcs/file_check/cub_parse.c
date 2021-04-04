@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 00:49:25 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/31 16:37:55 by cmarien          ###   ########.fr       */
+/*   Updated: 2021/04/04 17:15:06 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,21 @@ int		check_line(char *line, t_cub *cub, int index)
 		return (1);
 	while (line[index] == ' ' || line[index] == '\t')
 		index++;
-	if (line[index] == 'R')
+	if (line[index] == 'R' && cub->res_x == -1 && cub->res_y == -1)
 		return (resolution_check(line, cub, index + 1));
-	else if (line[index] == 'N' && line[index + 1] == 'O')
+	else if (!ft_strncmp(&line[index], "NO", 2) && !cub->north)
 		return (texture_path_check(line, cub, index + 2, 'N'));
-	else if (line[index] == 'S' && line[index + 1] == 'O')
+	else if (!ft_strncmp(&line[index], "SO", 2) && !cub->south)
 		return (texture_path_check(line, cub, index + 2, 'S'));
-	else if (line[index] == 'E' && line[index + 1] == 'A')
+	else if (!ft_strncmp(&line[index], "EA", 2) && !cub->east)
 		return (texture_path_check(line, cub, index + 2, 'E'));
-	else if (line[index] == 'W' && line[index + 1] == 'E')
+	else if (!ft_strncmp(&line[index], "WE", 2) && !cub->west)
 		return (texture_path_check(line, cub, index + 2, 'W'));
-	else if (line[index] == 'S')
+	else if (line[index] == 'S' && !cub->sprite)
 		return (texture_path_check(line, cub, index + 1, 's'));
-	else if (line[index] == 'F')
+	else if (line[index] == 'F' && cub->floor_color == -1)
 		return (floor_check(line, cub, index + 1));
-	else if (line[index] == 'C')
+	else if (line[index] == 'C' && cub->ceiling_color == -1)
 		return (ceiling_check(line, cub, index + 1));
 	else if (line[index] == '1')
 		return (map_verif(line, cub));

@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:11:34 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/31 17:51:31 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/04/04 16:53:28 by rmouduri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,6 @@ int				map_check_loop(t_cub *cub, int i, int j);
 int				core(int **map, int i, int j, int x);
 int				border(int **map, int i, int j, int x);
 int				get_put_color(t_game *g, unsigned int *color);
+int				ft_strncmp(char *s1, char *s2, unsigned int n);
 
 #endif
