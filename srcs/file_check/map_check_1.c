@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 00:49:04 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/31 01:30:00 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:48:25 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int		map_check(t_cub *cub)
 	}
 	if (cub->is_player == 1)
 		return (1);
+	free_parse(cub);
 	return (cub->is_player == 0 ? error_code('P') + free_cub(cub)
 	: error_code('p') + free_cub(cub));
 }

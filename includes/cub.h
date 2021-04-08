@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 02:15:39 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/03/31 16:11:21 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/04/08 18:20:40 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct	s_cub
 {
 	int		start;
 	char	*str;
+	int		fd;
 	int		is_player;
 	int		**map;
 	int		error;
@@ -69,6 +70,7 @@ int				texture_path_check(char *line, t_cub *cub, int index,
 int				floor_check(char *line, t_cub *cub, int index);
 int				ceiling_check(char *line, t_cub *cub, int index);
 int				map_verif(char *line, t_cub *cub);
+int				map_count(char *str);
 int				error_code(char c);
 int				cub_parse(char *str, t_cub *cub);
 int				pos_edit(t_cub *cub, int j, int i);

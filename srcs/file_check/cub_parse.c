@@ -6,7 +6,7 @@
 /*   By: rmouduri <rmouduri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 00:49:25 by rmouduri          #+#    #+#             */
-/*   Updated: 2021/04/04 17:15:06 by rmouduri         ###   ########.fr       */
+/*   Updated: 2021/04/08 18:20:24 by cmarien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,16 @@ int		ft_map(t_cub *cub)
 int		cub_parse(char *str, t_cub *cub)
 {
 	char	*tmp;
-	int		fd;
 	char	*line;
 
 	cub_init(cub);
-	if ((fd = check_file_format(str)) == -1)
+	if ((cub->fd = check_file_format(str)) == -1)
 		return (0);
-	while ((cub->ret = get_next_line(fd, &line)) >= 0)
+	while ((cub->ret = get_next_line(cub->fd, &line)) >= 0)
 	{
 		if (cub->start == 1 && (ft_strlen(line) || cub->ret))
 		{
+			map_count(line) == 0 ? cub->error = -1 : 0;
 			tmp = ft_strjoin(cub->str, line);
 			free(cub->str);
 			cub->str = tmp;
@@ -115,6 +115,6 @@ int		cub_parse(char *str, t_cub *cub)
 	}
 	last_check(cub) == 0 ? cub->error = -1 : 0;
 	cub->ret = cub->error;
-	return (cub->ret == -1 ? ft_memdel(&line, fd) + free_parse(cub) :
-			ft_map(cub) + ft_memdel(&line, fd));
+	return (cub->ret == -1 ? ft_memdel(&line, cub->fd) + free_parse(cub) :
+			ft_map(cub) + ft_memdel(&line, cub->fd));
 }

@@ -5,9 +5,11 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 				srcs/file_check/parse_utils.c			\
 				srcs/file_check/memdel.c				\
 				srcs/file_check/map_check_loop.c		\
+				srcs/file_check/map_count.c				\
 				srcs/file_check/last_check.c			\
 				srcs/utils/ft_strcmp.c					\
 				srcs/utils/ft_strncmp.c					\
+				srcs/main.c								\
 				srcs/utils/my_mlx_pixel_put.c			\
 				srcs/utils/gnl/get_next_line.c			\
 				srcs/utils/gnl/get_next_line_utils.c	\
@@ -26,6 +28,8 @@ SRCS		=	srcs/file_check/map_check_1.c			\
 INCLUDES	=	-I./includes/	\
 				-I./mlx/
 
+OBJS		=$(SRCS:.c=.o)
+
 NAME		=	cub3D
 
 LIBS		=	-L/usr/lib -L./mlx -lmlx_Linux -lXext -lX11 -lm -lz
@@ -36,18 +40,21 @@ CC			=	gcc
 
 RM			=	rm -f
 
-${NAME}:		clean
+.c.o:
+				${CC} ${CFLAGS} -c -D BUFFER_SIZE=10 ${INCLUDES} ${LIBS} $< -o ${<:.c=.o}
+
+${NAME}:		${OBJS}
 				make -C mlx
-				${CC} -o ${NAME} srcs/main.c ${SRCS} ${CFLAGS} -D BUFFER_SIZE=10 ${INCLUDES} ${LIBS}
+				${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBS}
 
 all:			${NAME}
 
 clean:
-				find . -type f \( -name "*~" -o -name "#*#" -o -name "*.o" -o -name "*.gch" \) -delete
+				${RM} ${OBJS}
+				make clean -C mlx
 				${RM} screenshot.bmp
 
 fclean:			clean
-				make clean -C mlx
 				${RM} ${NAME}
 
 re:				fclean all
