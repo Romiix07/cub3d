@@ -1,12 +1,3 @@
-NO ./textures/redbrick.xpm
-S ./textures/barrel.xpm
-EA ./textures/bluestone.xpm
-R 1920 1080
-SO ./textures/redbrick.xpm
-WE ./textures/purplestone.xpm
-
-C 96,200,240
-F 200, 0, 150
 
 111111
 1N0001
