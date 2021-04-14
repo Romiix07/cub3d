@@ -32,7 +32,7 @@ OBJS		=$(SRCS:.c=.o)
 
 NAME		=	cub3D
 
-LIBS		=	-L/usr/lib -L./mlx -lmlx_Linux -lXext -lX11 -lm
+LIBS		=	-L/usr/lib -L./mlx -lmlx_Linux -lXext -lX11 -lm -lz
 
 CFLAGS      =   -Wall -Werror -Wextra
 
